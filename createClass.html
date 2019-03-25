@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Create Class</title>
+</head>
+<body>
+	<h1>CREATE COURSE</h1>
+	<form id="xcelform" method="post">
+		Class Name:
+		<input type="text" id="className" required>
+		<br>
+		Stream:
+		<select id="streamSelect" name="streamSelect" form="xcelform">
+			<option value="sample">SAMPLE</option>
+		</select>
+		<br>
+		Upload Xcel File:
+		<br>
+		<input type="file" id="xcelfile" accept=".xcel" required title=".xcel">
+		<br>
+		<input id="submitbutton" type="submit" value="Submit">
+		<input id="resetbutton" type="reset" value="Reset">
+	</form>
+</body>
+</html>
