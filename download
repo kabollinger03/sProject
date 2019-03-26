@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Download</title>
+		<meta charset="ISO-8859-1">
+	</head>
+
+	<body>
+		<h1>Download Excel Score Template</h1>
+		<p>
+			<img id="excelPic" src="" alt="Excel Download Picture"></img>
+			<div id="updateDate">Last Updated: 3/25/2019</div>
+			<div id="fileSize">File Size: 10kbs</div>
+			<div id="fileType">File Type: .xlsx</div>
+		</p>
+		<p>
+			<button>Download</button>
+		</p>
+	</body>
+</html>
