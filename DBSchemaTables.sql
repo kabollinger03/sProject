@@ -1,6 +1,16 @@
 CREATE USER Student_Performance IDENTIFIED BY Student_Performance;
-connect Student_Performance/Student_Performance;
 GRANT CONNECT, RESOURCE, DBA To Student_Performance;
+connect Student_Performance/Student_Performance;
+
+-- -----------------------------------------------------
+-- Table Student_Performance.Users
+-- -----------------------------------------------------
+CREATE TABLE Student_Performance.Users (
+  user_id VARCHAR2(30) NOT NULL,
+  password VARCHAR2(18) NULL,
+  isAdmin VARCHAR2(1) NULL,
+  PRIMARY KEY (user_id));
+
 
 -- -----------------------------------------------------
 -- Table Student_Performance.Stream
