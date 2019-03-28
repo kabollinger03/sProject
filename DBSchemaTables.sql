@@ -114,7 +114,8 @@ CREATE TABLE Student_Performance.Class_has_Modules (
 -- -----------------------------------------------------
 CREATE TABLE Student_Performance.Employees_take_Modules (
   module_id NUMBER(10) NOT NULL,
-  employee_id VARCHAR2(30) NOT NULL
+  employee_id VARCHAR2(30) NOT NULL,
+  score NUMBER(6,2)
  ,
   CONSTRAINT fk_Modules_has_Modules1
     FOREIGN KEY (module_id)
