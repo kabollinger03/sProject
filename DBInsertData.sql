@@ -16,6 +16,6 @@ Insert INTO Modules VALUES('5', 'OracleMod', 'DB');
 
 Insert INTO Courses VALUES('OR1.3', 'Oracle1.3', '5');
 
-Insert INTO Employees_Take_Modules VALUES('10', 'IM505');
+Insert INTO Employees_Take_Modules VALUES('10', 'IM505', );
 
 Insert INTO Class_Has_Modules VALUES('JV123', '10');
