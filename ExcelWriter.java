@@ -16,7 +16,7 @@ public class ExcelWriter {
 		XSSFSheet spreadsheet = workbook.createSheet("Performance Reports Template");
 		
 		XSSFRow row; // row object
-		int rowIndex = 0; // the current row index
+		int rowIndex = 0; // the current row index, advanced as rows are created
 		
 		row = spreadsheet.createRow(rowIndex++); // the title row to indicate the data to be entered
 
