@@ -1,0 +1,87 @@
+@import 'bourbon';
+
+$color-border: #e0e0e0;
+$color-main: #18bc9c;
+
+body {
+    font-family: 'Lato', sans-serif;
+    background: url('http://freshwallpapers.in/walls/green_blur_background-wide.jpg') center center;
+}
+
+.wrapper {
+    max-width: 40em;
+    padding: 2em;
+    margin: 5em auto;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
+    border-radius: 3px;
+}
+
+.login-heading {
+    font-size: 2em;
+    color: $color-main;
+    margin-bottom: 1em;
+}
+
+.placeholder-override-wrap {
+    position: relative;
+    margin-bottom: 0;
+    border-bottom: 1px solid $color-border;
+
+    &:first-child {
+        border-top: 1px solid $color-border;
+    }
+}
+
+.placeholder-override-label {
+    font-size: 1.5em;
+    position: absolute;
+    top: 50%;
+    @include transform(translateY(-50%));
+    @include transition(all 0.3s);
+}
+
+.placeholder-override-input {
+    z-index: 1;
+    width: 100%;
+    position: relative;
+    border: 0;
+    font-size: 1.5em;
+    padding: 1em 0;
+    background: 0 0
+    &:focus {
+        outline: none;
+    }
+
+    &:valid, &:focus {
+        ~ .placeholder-override-label {
+            font-size: .85em;
+            top: 20%;
+            color: $color-main;
+            ;
+        }
+    }
+}
+
+.btn {
+    border: 1px solid transparent;
+    display: inline-block;
+    font-weight: normal;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 6px;
+
+    &:focus {
+        background-color: #128f76;
+        outline: none;
+    }
+}
+
+.btn-submit {
+    padding: 0.8em 1em;
+    font-size: 19px;
+    color: #ffffff;
+    background-color: #18bc9c;
+    border-color: #18bc9c;
+    margin-top: 1.5em;
+}
