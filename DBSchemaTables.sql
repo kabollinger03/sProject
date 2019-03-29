@@ -71,12 +71,13 @@ CREATE TABLE Student_Performance.Type (
 CREATE TABLE Student_Performance.Modules (
   module_id NUMBER(10) NOT NULL,
   module_name VARCHAR2(45) NULL,
-  module_type VARCHAR2(30) NOT NULL,
+  category VARCHAR2(30) NULL,
+  stream_id VARCHAR2(40) NOT NULL,
   PRIMARY KEY (module_id)
  ,
-  CONSTRAINT fk_Modules_Type
-    FOREIGN KEY (module_type)
-    REFERENCES Student_Performance.Type (type_id)
+  CONSTRAINT fk_Modules_Stream1
+    FOREIGN KEY (stream_id)
+    REFERENCES Student_Performance.Stream (stream_id)
    );
 
 -- -----------------------------------------------------
