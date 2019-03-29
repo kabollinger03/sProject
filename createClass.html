@@ -6,8 +6,14 @@
 <body>
 	<h1>CREATE CLASS</h1>
 	<form id="xcelform" method="post">
-		Class Name:
-		<input type="text" id="className" required>
+		Class ID: =stream+location+onsite/offshore+date+srNo
+		<br>
+		Location:
+		<input type="text" name="location" id="location">
+		<select id="locationSelect" name="locationSelect" form="xcelform">
+			<option value="Offshore">CHI</option>
+			<option value="Onsite">OPA</option>
+		</select>
 		<br>
 		Stream:
 		<select id="streamSelect" name="streamSelect" form="xcelform">
