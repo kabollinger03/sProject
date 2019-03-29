@@ -22,10 +22,3 @@ ZenHub (backlog) link: https://app.zenhub.com/workspaces/sproject-5c91685fd76ef5
 **Employee** - The main piece of data being described. Does not use the application. Belongs to a *class*. Takes many *modules*, recieving a *score* for each.
 
 **Student** - Exact same thing as employee, but old term. Some people still use interchangably.
-
-
-
-
-
-
-
