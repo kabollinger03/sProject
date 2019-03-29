@@ -6,8 +6,8 @@ connect Student_Performance/Student_Performance;
 -- Table Student_Performance.Users
 -- -----------------------------------------------------
 CREATE TABLE Student_Performance.Users (
-  user_id VARCHAR2(30) NOT NULL,
-  password VARCHAR2(18) NULL,
+  user_id VARCHAR2(100) NOT NULL,
+  password VARCHAR2(30) NULL,
   isAdmin VARCHAR2(1) NULL,
   PRIMARY KEY (user_id));
 
@@ -17,6 +17,7 @@ CREATE TABLE Student_Performance.Users (
 -- -----------------------------------------------------
 CREATE TABLE Student_Performance.Stream (
   stream_id VARCHAR2(40) NOT NULL,
+  stream_name VARCHAR2(50) NULL,
   PRIMARY KEY (stream_id));
 
 -- -----------------------------------------------------
@@ -25,7 +26,7 @@ CREATE TABLE Student_Performance.Stream (
 CREATE TABLE Student_Performance.Class (
   class_id VARCHAR2(30) NOT NULL,
   stream_id VARCHAR2(40) NOT NULL,
-  user_id VARCHAR2(30) NOT NULL,
+  user_id VARCHAR2(100) NOT NULL,
   PRIMARY KEY (class_id)
  ,
   CONSTRAINT fk_Class_Stream1
@@ -41,9 +42,9 @@ CREATE TABLE Student_Performance.Class (
 -- Table Student_Performance.Employees
 -- -----------------------------------------------------
 CREATE TABLE Student_Performance.Employees (
-  employee_id VARCHAR2(30) NOT NULL,
-  name VARCHAR2(45) NULL,
-  email VARCHAR2(45) NULL,
+  employee_id VARCHAR2(10) NOT NULL,
+  name VARCHAR2(100) NULL,
+  email VARCHAR2(100) NULL,
   class_id VARCHAR2(30) NOT NULL,
   PRIMARY KEY (employee_id)
  ,
@@ -71,12 +72,13 @@ CREATE TABLE Student_Performance.Type (
 CREATE TABLE Student_Performance.Modules (
   module_id NUMBER(10) NOT NULL,
   module_name VARCHAR2(45) NULL,
-  module_type VARCHAR2(30) NOT NULL,
+  category VARCHAR2(30) NULL,
+  stream_id VARCHAR2(40) NOT NULL,
   PRIMARY KEY (module_id)
  ,
-  CONSTRAINT fk_Modules_Type
-    FOREIGN KEY (module_type)
-    REFERENCES Student_Performance.Type (type_id)
+  CONSTRAINT fk_Modules_Stream1
+    FOREIGN KEY (stream_id)
+    REFERENCES Student_Performance.Stream (stream_id)
    );
 
 -- -----------------------------------------------------
@@ -94,27 +96,12 @@ CREATE TABLE Student_Performance.Courses (
    );
 
 -- -----------------------------------------------------
--- Table Student_Performance.Class_has_Modules
--- -----------------------------------------------------
-CREATE TABLE Student_Performance.Class_has_Modules (
-  class_id VARCHAR2(30) NOT NULL,
-  module_id NUMBER(10) NOT NULL
- ,
-  CONSTRAINT fk_Class_has_Modules_Class1
-    FOREIGN KEY (class_id)
-    REFERENCES Student_Performance.Class (class_id)
-   ,
-  CONSTRAINT fk_Class_has_Modules_Modules1
-    FOREIGN KEY (module_id)
-    REFERENCES Student_Performance.Modules (module_id)
-   );
-
--- -----------------------------------------------------
 -- Table Student_Performance.Employees_take_Modules
 -- -----------------------------------------------------
 CREATE TABLE Student_Performance.Employees_take_Modules (
   module_id NUMBER(10) NOT NULL,
-  employee_id VARCHAR2(30) NOT NULL
+  employee_id VARCHAR2(10) NOT NULL,
+  score NUMBER(6,2)
  ,
   CONSTRAINT fk_Modules_has_Modules1
     FOREIGN KEY (module_id)
