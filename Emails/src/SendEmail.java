@@ -21,11 +21,6 @@ import javax.mail.internet.MimeMultipart;
 public class SendEmail {
 
     public static void main(String[] args) {
-    		
-    	String[] arr = new String[]{"phillipphoong@gmail.com", "hunter.pierce2@knights.ucf.edu", "icebergkj@yahoo.com"};
-    	
-    	
-    	sendBatchEmails(arr);
 
     }
     
@@ -38,7 +33,7 @@ public class SendEmail {
 
         String to=email;
 
-        //imported code
+
         Properties props = new Properties();
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.host", host);
@@ -55,7 +50,6 @@ public class SendEmail {
                     }
                 });
 
-        //imported code
         try {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(user));
