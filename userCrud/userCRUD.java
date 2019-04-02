@@ -17,6 +17,28 @@ public class userCRUD {
         	System.out.println("Inserting user failed");
              System.out.println(ex);
         }
+	
+	public static void retrieveUser(Statement st, String userId){
+    	try {
+    		System.out.println("Retrieving User");
+    		System.out.println( "User Id" + "                 Password " + "    IsAdmin");
+    		System.out.println("_____________________________________________________");
+    		
+    		String query = "select * from Users where user_id = " + "'" + userId +"'";
+    		ResultSet rs = st.executeQuery(query);
+    					
+    		while(rs.next())
+    		        System.out.println(rs.getString("User_Id")+ "     "+ rs.getString("password") + "     " + rs.getString("IsAdmin"));
+    			          
+    		
+    		}
+    	
+    		catch (Exception ex) 
+    		{
+    			System.out.print("Retrieving User failed");
+    			System.out.println(ex);
+    		}
+    	}	
 		
 		
 	}
