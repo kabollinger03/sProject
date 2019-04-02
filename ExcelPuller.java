@@ -16,18 +16,14 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Iterator;
-public class Puller {
+public class ExcelPuller {
 	
-
-	
-            private static final String FILE_NAME = "C:\\Users\\syntel\\Downloads\\MockData.xlsx";
-
             
-			public static void main(String[] args) throws IOException {
+			public ArrayList<Employee> generateEmployees(String FILE_NAME) throws IOException{
       
             	Workbook workbook = null;
-            	List<String> columns = new ArrayList<>(); // the column titles: "name", "email", "empID", "mod1Score"
-            	List<Employee> emps = new ArrayList<>();
+            	ArrayList<String> columns = new ArrayList<>(); // the column titles: "name", "email", "empID", "mod1Score"
+            	ArrayList<Employee> emps = new ArrayList<>();
             	
                 try {
 
@@ -105,12 +101,9 @@ public class Puller {
                     e.printStackTrace();
                 } finally {
                 	
-                	 for(int i = 0; i < emps.size(); i++) {   
-                         System.out.println(emps.get(i) + " ");
-                     } 
                 	workbook.close();
                 }
-                
+               return emps; 
             }
    
         }

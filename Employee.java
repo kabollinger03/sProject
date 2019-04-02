@@ -6,7 +6,7 @@ public class Employee {
 	private String employeeName;
 	private String employeeEmail;
 	private double classID;
-	private List<Module> modScores = new ArrayList<>();	
+	private ArrayList<Module> modScores = new ArrayList<>();	
 	
 	public Employee() {
 		super();
@@ -36,7 +36,7 @@ public class Employee {
 		return modScores;
 	}
 	
-	public void setModScores(List<Module> modScores) {
+	public void setModScores(ArrayList<Module> modScores) {
 		this.modScores = modScores;
 	}
 	
