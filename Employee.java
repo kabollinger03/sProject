@@ -8,8 +8,12 @@ public class Employee {
 	private double classID;
 	private List<Module> modScores = new ArrayList<>();	
 	
+	
+	
+	
 	public Employee() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 	public Employee(String employeeID, String employeeName, String employeeEmail, double classID) {
 		super();
@@ -68,5 +72,11 @@ public class Employee {
 	public String toString() {
 		return "Employee [employeeID=" + employeeID + ", employeeName=" + employeeName + ", employeeEmail="
 				+ employeeEmail + ", classID=" + classID + ", modScores=" + modScores + "]";
-	}	
+	}
+	
+	
+	
+	
+	
+	
 }
