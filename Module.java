@@ -8,7 +8,7 @@ public class Module {
 	public Module() {
 		super();
 		this.moduleID = "N/A";
-		this.moduleScore = 0;
+		this.moduleScore = -1;
 	}
 	public Module(String moduleID, double moduleScore) {
 		super();

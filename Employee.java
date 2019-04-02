@@ -13,7 +13,7 @@ public class Employee {
 		this.employeeID = "N/A";
 		this.employeeName = "N/A";
 		this.employeeEmail = "N/A";
-		this.classID = 0;
+		this.classID = -1;
 		this.modScores = null;
 	}
 	public Employee(String employeeID, String employeeName, String employeeEmail, double classID) {
