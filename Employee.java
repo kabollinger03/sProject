@@ -8,8 +8,15 @@ public class Employee {
 	private double classID;
 	private List<Module> modScores = new ArrayList<>();	
 	
+	
+	
+	
 	public Employee() {
 		super();
+		this.employeeName = "N/A";
+		this.employeeEmail = "N/A";
+		this.classID = 0;
+		this.modScores = null;
 	}
 	public Employee(String employeeID, String employeeName, String employeeEmail, double classID) {
 		super();
@@ -68,5 +75,11 @@ public class Employee {
 	public String toString() {
 		return "Employee [employeeID=" + employeeID + ", employeeName=" + employeeName + ", employeeEmail="
 				+ employeeEmail + ", classID=" + classID + ", modScores=" + modScores + "]";
-	}	
+	}
+	
+	
+	
+	
+	
+	
 }
