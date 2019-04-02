@@ -10,6 +10,11 @@ public class Employee {
 	
 	public Employee() {
 		super();
+		this.employeeID = "N/A";
+		this.employeeName = "N/A";
+		this.employeeEmail = "N/A";
+		this.classID = 0;
+		this.modScores = null;
 	}
 	public Employee(String employeeID, String employeeName, String employeeEmail, double classID) {
 		super();

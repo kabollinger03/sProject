@@ -18,18 +18,11 @@ import java.io.IOException;
 import java.util.Iterator;
 public class Puller {
 	
-	/*
-	 * Hey buddy,
-	 * 	I set the currentRow in the 2nd while loop to get the cell values
-	 * 	I added a few more lines, mostly just print statements and comments
-	 * 	You should run it to see what it outputs.
-	 * 
-	 * --Chris "Big Data" Mendoza
-	 */
+
 	
             private static final String FILE_NAME = "C:\\Users\\syntel\\Downloads\\MockData.xlsx";
 
-            @SuppressWarnings("deprecation")
+            
 			public static void main(String[] args) throws IOException {
       
             	Workbook workbook = null;
@@ -101,7 +94,7 @@ public class Puller {
                         	}
                         	            
                         	
-                        	//System.out.println(newEmp.toString());
+                        	
                         	
                         	}
                         emps.add(newEmp);

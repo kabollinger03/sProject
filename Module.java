@@ -3,15 +3,17 @@ package extraction.sProject;
 public class Module {
 	
 	private String moduleID;
-	private double moduelsScore;
+	private double moduleScore;
 	
 	public Module() {
 		super();
+		this.moduleID = "N/A";
+		this.moduleScore = 0;
 	}
-	public Module(String moduleID, double moduelsScore) {
+	public Module(String moduleID, double moduleScore) {
 		super();
 		this.moduleID = moduleID;
-		this.moduelsScore = moduelsScore;
+		this.moduleScore = moduleScore;
 	}
 
 	
@@ -22,15 +24,15 @@ public class Module {
 		this.moduleID = moduleID;
 	}
 
-	public double getModuelsScore() {
-		return moduelsScore;
+	public double getmoduleScore() {
+		return moduleScore;
 	}
-	public void setModuelsScore(double moduelsScore) {
-		this.moduelsScore = moduelsScore;
+	public void setmoduleScore(double moduleScore) {
+		this.moduleScore = moduleScore;
 	}
 
 	@Override
 	public String toString() {
-		return "Module [moduleID=" + moduleID + ", moduelsScore=" + moduelsScore + "]";
+		return "Module [moduleID=" + moduleID + ", moduleScore=" + moduleScore + "]";
 	}	
 }
