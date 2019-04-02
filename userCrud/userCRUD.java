@@ -17,6 +17,7 @@ public class userCRUD {
         	System.out.println("Inserting user failed");
              System.out.println(ex);
         }
+	}
 	
 	public static void retrieveUser(Statement st, String userId){
     	try {
@@ -41,7 +42,7 @@ public class userCRUD {
     	}	
 		
 		
-	}
+	
 	
 	public static void deleteUser(Statement st, String userId) {
         try {
