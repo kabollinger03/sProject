@@ -8,25 +8,29 @@ public class InsertFunctions {
  */
 	
 	
+	 
+	public static void main(String[] args){
+		try {
+			Statement state;
+			Connection c1;
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			c1 = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "Student_Performance", "Student_Performance");
+			state = c1.createStatement();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	
-	
-	
-		//Connect to DB
-		//Class.forName("oracle.jdbc.driver.OracleDriver");
-		//c1 = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "Student_Performance", "Student_Performance");
 		
 		
 		//INSERT FOR STREAM
-		public static void insertStream(String id, String name){
+		public void insertStream(Statement state, String id, String name){
 		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
+		int r1 =state.executeUpdate("INSERT INTO stream VALUES('"+id+"', '"+name+"')");
+		System.out.println(r1+" rows inserted."); //Take this line out if you don't want a confirmation message
 		
-		Connection c1 = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "Student_Performance", "Student_Performance");
-		Statement state = c1.createStatement();
-		ResultSet r1 =state.executeQuery("INSERT INTO stream VALUES('"+id+"', '"+name+"')");
-		System.out.println("Insert Statement Executed"); //Take this line out if you don't want a confirmation message
-		c1.close();
 		}
 		catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -35,40 +39,32 @@ public class InsertFunctions {
 		}
 		//INSERT FOR CLASS
 		
-		public static void insertClass(String id, String name, String idFK){
+		public static void insertClass(Statement state, String id, String name, String idFK){
 		try{
-		Class.forName("oracle.jdbc.driver.OracleDriver");
-		Connection c1 = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "Student_Performance", "Student_Performance");
-		Statement state2 = c1.createStatement();
-		ResultSet r1=state2.executeQuery("INSERT INTO class VALUES('"+id+"', '"+name+"', '"+idFK+"')");
-		System.out.println("Insert Statement Executed"); //Take this line out if you don't want a confirmation message
-		c1.close();
+		int r1=state.executeUpdate("INSERT INTO class VALUES('"+id+"', '"+name+"', '"+idFK+"')");
+		System.out.println(r1+" rows inserted."); //Take this line out if you don't want a confirmation message
+		
 		} catch(Exception e){
 			e.printStackTrace();
 		}
 		}
 		//INSERT FOR MODULES
-		public static void insertModules(int id, String name, String category, String streamID){
-		try{Class.forName("oracle.jdbc.driver.OracleDriver");
-		Connection c1 = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "Student_Performance", "Student_Performance");
-		Statement state = c1.createStatement();
-		ResultSet r1=state.executeQuery("INSERT INTO modules VALUES("+id+", '"+name+"', '"+category+"', '"+streamID+"')");
-		System.out.println("Insert Statement Executed"); //Take this line out if you don't want a confirmation message
-		c1.close();
+		public static void insertModules(Statement state, int id, String name, String category, String streamID){
+		try{
+		int r1=state.executeUpdate("INSERT INTO modules VALUES("+id+", '"+name+"', '"+category+"', '"+streamID+"')");
+		System.out.println(r1+" rows inserted."); //Take this line out if you don't want a confirmation message
+		
 		}
 		catch (Exception e){
 			e.printStackTrace();
 		}
 		}
 		//INSERT FOR COURSES
-		public static void insertCourses(String courseID, String name, int moduleID){
+		public static void insertCourses(Statement state, String courseID, String name, int moduleID){
 		try{
-		Class.forName("oracle.jdbc.driver.OracleDriver");
-		Connection c1 = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "Student_Performance", "Student_Performance");
-		Statement state=c1.createStatement();
-		ResultSet r1=state.executeQuery("INSERT INTO courses VALUES('"+courseID+"', '"+name+"', "+moduleID+")");
-		System.out.println("Insert Statement Executed"); //Take this line out if you don't want a confirmation message
-		c1.close();
+		int r1=state.executeUpdate("INSERT INTO courses VALUES('"+courseID+"', '"+name+"', "+moduleID+")");
+		System.out.println(r1+" rows inserted."); //Take this line out if you don't want a confirmation message
+		
 		}
 		catch (Exception e){
 			e.printStackTrace();
