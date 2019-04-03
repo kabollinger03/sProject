@@ -9,21 +9,6 @@ public class InsertFunctions {
 	
 	
 	 
-	public static void main(String[] args){
-		try {
-			Statement state;
-			Connection c1;
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			c1 = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "Student_Performance", "Student_Performance");
-			state = c1.createStatement();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	
-		
 		
 		//INSERT FOR STREAM
 		public void insertStream(Statement state, String id, String name){
