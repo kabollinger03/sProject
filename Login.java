@@ -1,3 +1,4 @@
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -225,8 +226,8 @@ public class Login {
 				break;
 			case 2:
 				System.out.println("DOWNLOADING TEMPLATE FUNCTIONALITY");
-				DownloadTemplateMenu.createTemplate();
-                                break;
+                                DownloadTemplateMenu.createTemplate();
+				break;
 			default:
 				System.out.println("No such function, please choose again.");
 			}

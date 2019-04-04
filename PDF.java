@@ -3,12 +3,14 @@
 
 import java.sql.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import org.apache.commons.logging.*;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+
 
 public class PDF {
 	private PDDocument document = new PDDocument();
@@ -20,6 +22,7 @@ public class PDF {
 	private String conUSER;//Username for connecting to DB
 	private String conPW;//Password for connecting to DB
 	private String filePath;//Path to save the pdf
+       
 	
 	public PDF(String conURL, String conUSER, String conPW, String filePath) {
 		super();
@@ -27,42 +30,86 @@ public class PDF {
 		this.conUSER=conUSER;
 		this.conPW=conPW;
 		this.filePath = filePath;
+                
 	}
 	
-	public void generate(String empid) throws SQLException, IOException{ //empid not implemented yet, should be able to get everything you will need from it
-		con = DriverManager.getConnection(conURL, conUSER, conPW);
-		PreparedStatement psmt = con.prepareStatement("select * from tab"); //Placeholder
-		ResultSet rs =   psmt.executeQuery();
-		  while(rs.next())
-            System.out.println(rs.getString(1));
+	public void generate(String empid) throws SQLException, IOException, Exception{ //empid not implemented yet, should be able to get everything you will need from it
+		ArrayList<String> stream = new ArrayList();
+                String name;
+                String id;
+                String foundation;
+                String specialization;
+                String domain;
+                String avgGrade;
+                String fGrade;
+                String sGrade;
+                String dGrade;
+                String induction;
+                PDFinfo info = new PDFinfo();
 		document = new PDDocument();
 		font = PDType1Font.TIMES_ROMAN;
 		page = new PDPage();
 		document.addPage( page );
-		
+		ArrayList <String>foundations = new ArrayList();
+                ArrayList <String>specializations = new ArrayList();
+                ArrayList <String>domains = new ArrayList();
 		PDPageContentStream contentStream = new PDPageContentStream(document, page);
-		
+                
+                name=info.getEmployeeName(empid);
+                stream=info.getStreamIDName(empid);
+                avgGrade=info.getAverageScoresByEmployeeID(empid);
+                foundations.addAll(info.getModScoreByFoundation(empid));
+                specializations.addAll(info.getModScoreBySpecialization(empid));
+                domains.addAll(info.getModScoreByProcessDomain(empid));
+                fGrade=info.getAverageScoresByFoundationEmployeeID(empid);
+                sGrade=info.getAverageScoresBySpecializationEmployeeID(empid);
+                dGrade=info.getAverageScoresByProcessDomainEmployeeID(empid);
 		contentStream.setLeading(14.5f);
 		contentStream.beginText();
-		contentStream.setFont( font, 12 );
+		contentStream.setFont( font, 76 );
 		contentStream.newLineAtOffset(100, 700);
-		contentStream.showText( "Student ID: " );
+                contentStream.showText("LOGO HERE");
+                contentStream.newLine();
+                contentStream.setFont( font, 12);
+		contentStream.showText( "Training Report: "+name+"            ");//NAME select name from employees where employee_id=empid?
+                contentStream.showText("Emp ID: "+empid);//Just use empid param
 		contentStream.newLine();
-		contentStream.showText("Student email: ");
+		contentStream.showText("Induction: "+stream.toString());//Stream Code + Stream Name select s.stream_id, s.stream_name from Stream s, Class c, Employees e where s.stream_id=c.stream_id and c.class_id=e.class_id and e.employee_id='ab'
 		contentStream.newLine();
-		contentStream.showText("First Name: ");
-		contentStream.newLine();
-		contentStream.showText("Last Name: ");
-		contentStream.newLine();
-		contentStream.showText("Module X: "+ "     Grade: ");
+                contentStream.newLine();
+                contentStream.showText("Foundation: ");//select distinct c.course_name from 
+                contentStream.newLine();
+                for(int i = 0; i < foundations.size(); i+=2){
+                    contentStream.showText(foundations.get(i)+" "+foundations.get(i+1));
+                    contentStream.newLine();
+                }
+                contentStream.newLine();
+                contentStream.showText("Specialization: ");
+                contentStream.newLine();
+                  for(int i = 0; i < specializations.size(); i+=2){
+                    contentStream.showText(specializations.get(i)+" "+specializations.get(i+1));
+                    contentStream.newLine();
+                }
+                contentStream.newLine();
+                contentStream.showText("Process/Domain: ");
+                contentStream.newLine();
+                  for(int i = 0; i < domains.size(); i+=2){
+                    contentStream.showText(domains.get(i)+" "+domains.get(i+1));
+                    contentStream.newLine();
+                }
+                contentStream.newLine();
+                contentStream.showText("Overall Grade:  "+avgGrade+"   ");//select avg(e.scores) from Employees_take_Modules e, Modules m where m.module_id=e.module_id and e.employee_id=?
+                contentStream.showText("Foundation Grade: "+fGrade+"   ");//select avg(e.scores) from Employees_take_Modules e, Modules m where m.category='Foundation' and m.module_id=e.module_id and e.employee_id=?
+                contentStream.showText("Specialization Grade: "+sGrade+"   ");//select avg(e.scores) from Employees_take_Modules e, Modules m where m.category='Specialization' and m.module_id=e.module_id and e.employee_id=?
+                contentStream.showText("Process/Domain Grade: "+dGrade+"   ");//select avg(e.scores) from Employees_take_Modules e, Modules m where m.category='ProcessDomain' and m.module_id=e.module_id and e.employee_id=?
 		contentStream.endText();
-		
 		contentStream.close();
-		document.save(filePath);
+		document.save(empid+".pdf");
 		document.close();
-		rs.close();
-		psmt.close();
-		con.close();
+		
+                
+		
+                //BarChartEx bc = new BarChartEx();
 	}
 	
 	public PDDocument getDocument() {
