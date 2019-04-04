@@ -37,32 +37,33 @@ Insert INTO Employees VALUES('mn', 'and the other one is a gemstone', 'earth@syn
 
 
 Insert INTO Modules VALUES(10, 'website stuffs', 'Foundation', 'FSD123');
-Insert INTO Modules VALUES(5, 'special people', 'Specializataion', 'FSD123');
+Insert INTO Modules VALUES(5, 'special people', 'Specialization', 'FSD123');
 Insert INTO Modules VALUES(1, 'processes and domains', 'ProcessDomain', 'FSD123');
 Insert INTO Modules VALUES(2, 'database 101', 'Foundation', 'FSD123');
 Insert INTO Modules VALUES(3, 'database 201', 'Foundation', 'FSD123');
-Insert INTO Modules VALUES(4, 'OracleMod', 'Specializataion', 'FSD123');
-Insert INTO Modules VALUES(5, 'JavaMod1', 'Specializataion', 'FSD123');
-Insert INTO Modules VALUES(6, 'fun programses', 'Specializataion', 'FSD123');
-Insert INTO Modules VALUES(7, 'SCRUM', 'Specializataion', 'SCRUM12345');
+Insert INTO Modules VALUES(4, 'OracleMod', 'Specialization', 'FSD123');
+Insert INTO Modules VALUES(5, 'JavaMod1', 'Specialization', 'FSD123');
+Insert INTO Modules VALUES(6, 'fun programses', 'Specialization', 'FSD123');
+Insert INTO Modules VALUES(7, 'SCRUM', 'Specialization', 'SCRUM12345');
 Insert INTO Modules VALUES(8, 'SCRUM', 'ProcessDomain', 'FSD123');
 Insert INTO Modules VALUES(9, 'sh training wink', 'ProcessDomain', 'FSD123');
 Insert INTO Modules VALUES(11, 'ssh gutter person', 'ProcessDomain', 'DB343');
 Insert INTO Modules VALUES(12, 'aaaanameraes', 'ProcessDomain', 'DB343');
 Insert INTO Modules VALUES(13, 'module name', 'ProcessDomain', 'DB343');
-Insert INTO Modules VALUES(14, 'naaaame', 'Specializataion', 'DB343');
-Insert INTO Modules VALUES(15, 'rwar test', 'Specializataion', 'DB343');
-Insert INTO Modules VALUES(16, 'tesssttt', 'Specializataion', 'FSD123');
-Insert INTO Modules VALUES(17, 'igiveup', 'Specializataion', 'SCRUM12345');
-Insert INTO Modules VALUES(18, 'plzstop', 'Specializataion', 'SCRUM12345');
+Insert INTO Modules VALUES(14, 'naaaame', 'Specialization', 'DB343');
+Insert INTO Modules VALUES(15, 'rwar test', 'Specialization', 'DB343');
+Insert INTO Modules VALUES(16, 'tesssttt', 'Specialization', 'FSD123');
+Insert INTO Modules VALUES(17, 'igiveup', 'Specialization', 'SCRUM12345');
+Insert INTO Modules VALUES(18, 'plzstop', 'Specialization', 'SCRUM12345');
 Insert INTO Modules VALUES(19, 'plzhalp', 'Foundation', 'DB343');
 Insert INTO Modules VALUES(20, 'messageher', 'Foundation', 'FSD123');
 Insert INTO Modules VALUES(21, 'tesingisf...', 'Foundation', 'DB343');
 
 
-Insert INTO Courses VALUES('OR1.3', 'Oracle1.3', '5'); --leaving at one line because nothing effects this table right now. Seeing mod details is a feature.
+Insert INTO Courses VALUES('OR1.3', 'Oracle1.3', '5'); --leaving at few lines because nothing effects this table right now. Seeing mod details is a feature.
+Insert INTO Courses VALUES('OR1.4', 'Oracle1.4', '5');
+Insert INTO Courses VALUES('jva8', 'JavaSE8', '6');
 
-Insert INTO Employees_Take_Modules VALUES('10', 'ab', 83.00);
 Insert INTO Employees_Take_Modules VALUES('1', 'ab', 83.00);
 Insert INTO Employees_Take_Modules VALUES('2', 'ab', 83.00);
 Insert INTO Employees_Take_Modules VALUES('3', 'ab', 83.00);
