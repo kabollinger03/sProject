@@ -240,8 +240,8 @@ public class SendEmail {
     	return batchEmails;
     }
     
-    static void prompt() {
-    	Scanner reader = new Scanner(System.in);
+    static void prompt(Scanner reader) {
+        
 		String input = " ";
 
 		do{
@@ -281,8 +281,6 @@ public class SendEmail {
 			System.out.println(emails);
 			
 		}
-		
-		reader.close();
     }
     
     

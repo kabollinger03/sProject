@@ -236,7 +236,7 @@ public class Login {
                                 String file = userIn.next();
                                 ArrayList<Employee> employees = Runner.ExcelUpload(file);
                                 
-          
+                                SendEmail.prompt(userIn);
 
                             } catch (IOException ex) {
                                 ex.printStackTrace();
