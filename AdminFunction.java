@@ -5,7 +5,8 @@ import java.sql.Statement;
 import java.util.Scanner;
 
 public class AdminFunction  {
-	public static void main(String[] args) {
+	public static void getAdminPage() 
+	{
 
 		Scanner userIn = new Scanner(System.in); // Create a Scanner object
 		Scanner sc = new Scanner(System.in);
