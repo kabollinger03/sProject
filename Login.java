@@ -4,7 +4,10 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import java.util.Scanner; 
+
 import mySProject.DownloadTemplateMenu;
+
+
 public class Login {
 	private String username;
 	private String password;
@@ -225,8 +228,8 @@ public class Login {
 				break;
 			case 2:
 				System.out.println("DOWNLOADING TEMPLATE FUNCTIONALITY");
-                                DownloadTemplateMenu.createTemplate();
-				break;
+          DownloadTemplateMenu.createTemplate();
+				  break;
 			default:
 				System.out.println("No such function, please choose again.");
 			}

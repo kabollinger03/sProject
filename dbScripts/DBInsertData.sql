@@ -1,9 +1,9 @@
-Insert INTO Users VALUES('IN5', 'LS505', 'N');
 Insert INTO Users VALUES('IN1', 'KB1234', 'N');
 Insert INTO Users VALUES('IN2', 'GEM042289', 'N');
 Insert INTO Users VALUES('IN3', 'KMS', 'N');
 Insert INTO Users VALUES('IN4', 'naaaaammmmeee', 'N');
 Insert INTO Users VALUES('IN5', 'plaaaaacce', 'N');
+Insert INTO Users VALUES('IN6', 'thinggggg', 'N');
 Insert INTO Users VALUES('AD1', 'a noun', 'Y');
 Insert INTO Users VALUES('AD2', 'is', 'Y');
 Insert INTO Users VALUES('AD3', 'a', 'Y');
@@ -24,6 +24,7 @@ Insert INTO Class VALUES ('names', 'DB343', NULL);
 Insert INTO Class VALUES ('are', 'DB343', NULL);
 Insert INTO Class VALUES ('hard', 'BD456', NULL);
 Insert INTO Class VALUES ('test1', 'BD456', NULL);
+Insert INTO Class VALUES ('JV123', 'FSD123', NULL);
 
 Insert INTO Employees VALUES('IM505', 'IceMan', 'IM505@syn.com', 'JV123');
 Insert INTO Employees VALUES('PM', 'Peridot Metal', 'life@syn.com', 'JV123');
@@ -31,13 +32,12 @@ Insert INTO Employees VALUES('ab', 'Stefon Univorse', 'death@syn.com', 'MJ19');
 Insert INTO Employees VALUES('cd', 'Clearly not', 'love@syn.com', 'MJ19');
 Insert INTO Employees VALUES('ed', 'not fairuse', 'birth@syn.com', 'MJ19');
 Insert INTO Employees VALUES('gh', 'we changed lots', 'peace@syn.com', 'JV123');
-Insert INTO Employees VALUES('ij', 'really long name lol with lots of space-an-special-chatcters lol i cant type', 'equillylongemailbutthistimeitalshaslotsofextracharactersbecauseoftheampersandlolnocapsloliwannagohome@syn.com', 'JV123');
+Insert INTO Employees VALUES('ij', 'space-an-special-chatcters lol i cant type', 'sofextracharactersbecauseoftheampersandlolnocaps@syn.com', 'JV123');
 Insert INTO Employees VALUES('kj', 'lots of letters', 'planet@syn.com', 'AM19');
 Insert INTO Employees VALUES('mn', 'and the other one is a gemstone', 'earth@syn.com', 'names');
 
 
 Insert INTO Modules VALUES(10, 'website stuffs', 'Foundation', 'FSD123');
-Insert INTO Modules VALUES(5, 'special people', 'Specialization', 'FSD123');
 Insert INTO Modules VALUES(1, 'processes and domains', 'ProcessDomain', 'FSD123');
 Insert INTO Modules VALUES(2, 'database 101', 'Foundation', 'FSD123');
 Insert INTO Modules VALUES(3, 'database 201', 'Foundation', 'FSD123');
@@ -60,7 +60,7 @@ Insert INTO Modules VALUES(20, 'messageher', 'Foundation', 'FSD123');
 Insert INTO Modules VALUES(21, 'tesingisf...', 'Foundation', 'DB343');
 
 
-Insert INTO Courses VALUES('OR1.3', 'Oracle1.3', '5'); --leaving at few lines because nothing effects this table right now. Seeing mod details is a feature.
+Insert INTO Courses VALUES('OR1.3', 'Oracle1.3', '5');
 Insert INTO Courses VALUES('OR1.4', 'Oracle1.4', '5');
 Insert INTO Courses VALUES('jva8', 'JavaSE8', '6');
 
