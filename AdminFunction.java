@@ -5,12 +5,10 @@ import java.sql.Statement;
 import java.util.Scanner;
 
 public class AdminFunction  {
-	public static void getAdminPage() 
+    
+	public static void getAdminPage(Scanner userIn) 
 	{
 
-		Scanner userIn = new Scanner(System.in); // Create a Scanner object
-		Scanner sc = new Scanner(System.in);
-		
 		int function = 1;
 		while (function != 0) {
 			System.out.println("Welcome Admin");
@@ -45,7 +43,7 @@ public class AdminFunction  {
 			            Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","Student_Performance","Student_Performance");
 			            Statement st = con.createStatement();
 			            
-			            AdminFunctionality.createModule(st);
+			            AdminFunctionality.createModule(userIn, st);
 			            
 			            con.commit();
 			            st.close();
@@ -61,7 +59,7 @@ public class AdminFunction  {
 			            Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","Student_Performance","Student_Performance");
 			            Statement st = con.createStatement();
 			            
-			            AdminFunctionality.deleteModule(st);
+			            AdminFunctionality.deleteModule(userIn, st);
 			            
 			            con.commit();
 			            st.close();
@@ -77,7 +75,7 @@ public class AdminFunction  {
 			            Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","Student_Performance","Student_Performance");
 			            Statement st = con.createStatement();
 			            
-			            AdminFunctionality.updateModule(st);
+			            AdminFunctionality.updateModule(userIn, st);
 			            
 			            con.commit();
 			            st.close();
@@ -92,7 +90,7 @@ public class AdminFunction  {
 			case 2:
 				
 				manageUsers manageUser = new manageUsers();
-				manageUser.init();
+				manageUser.init(userIn);
 				
 				break;
 			case 3:
@@ -101,7 +99,7 @@ public class AdminFunction  {
 		            Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","Student_Performance","Student_Performance");
 		            Statement st = con.createStatement();
 		            
-		            manageCourses manageCourses = new manageCourses();
+		            manageCourses manageCourses = new manageCourses(userIn);
 		            manageCourses.userOptionsForCourses(st);
 		            
 		            con.commit();
