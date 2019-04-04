@@ -1,4 +1,12 @@
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
+import java.util.Scanner;
+import java.sql.Statement;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -7,8 +15,6 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-
-import java.util.Properties;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -19,21 +25,16 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMultipart;
 
 public class SendEmail {
-
-    public static void main(String[] args) {
-
-    }
     
-    
-    public static void sendIdividualEmail(String email) {
+    public static void sendIdividualEmail(String email, String id) {
     	
         String host="smtp.gmail.com";
-        final String user="";//ENTER YOUR EMAIL!!
-        final String password=""; //ENTER YOUR PASSWORD
+        final String user="jmcgregtemp@gmail.com";//ENTER YOUR EMAIL!!
+        final String password="mcgregor1"; //ENTER YOUR PASSWORD
 
         String to=email;
 
-
+        //imported code
         Properties props = new Properties();
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.host", host);
@@ -50,20 +51,19 @@ public class SendEmail {
                     }
                 });
 
+        //imported code
         try {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(user));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-            message.setSubject("Email Test");
-            message.setText("This email works.");
+            message.setSubject("Employee Performance");
 
-            message.setSubject("Testing Subject");
 
             // Create the message part
             BodyPart messageBodyPart = new MimeBodyPart();
 
             // Now set the actual message
-            messageBodyPart.setText("This is message body");
+            messageBodyPart.setText("Attached to this email is the pdf doc of the employee's performance.");
 
             // Create a multipart message
             Multipart multipart = new MimeMultipart();
@@ -73,7 +73,7 @@ public class SendEmail {
 
             // Part two is attachment
             messageBodyPart = new MimeBodyPart();
-            String filename = "/Users/syntel/Desktop/hello.txt";
+            String filename = id + ".pdf";
             DataSource source = new FileDataSource(filename);
             messageBodyPart.setDataHandler(new DataHandler(source));
             messageBodyPart.setFileName(filename);
@@ -91,14 +91,199 @@ public class SendEmail {
             System.out.println("Error: unable to send message....");
             mex.printStackTrace();
         }
+        
     }
     
-    public static void sendBatchEmails(String[] emails) {
+    public static void sendBatchEmails(Map<String,String> emails) {
     	
-    	for(int i = 0; i<emails.length; ++i) {
+    	for (Map.Entry<String,String> entry : emails.entrySet()) {
+    		sendIdividualEmail(entry.getKey(),entry.getValue());
     		
-    		sendIdividualEmail(emails[i]);
-    	}
-    	
+    	}		
     }
+    
+    static boolean validateEmail(String username)
+	{
+		int count = 0;
+		try
+		{
+			Class.forName("oracle.jdbc.driver.OracleDriver"); // Type 4 Driver Pure Java Driver
+			Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","Student_Performance","Student_Performance");
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery("select email from employees where email = " + "'" + username + "'");
+									
+			while(rs.next())
+			{
+				++count;
+			}
+					
+				
+			con.commit();
+			st.close();
+			con.close();
+			        
+			        
+			if(count == 0 || count > 1)
+			{
+				System.out.println("Not Valid Email!!!");
+				return false;
+			}
+			else if(count ==1)
+			{
+				System.out.println("Valid Email!");
+				return true;
+			}
+		                
+		}catch (Exception ex) 
+		{
+					System.out.println(ex);
+		}
+				
+
+		return false;
+	}
+    
+    static boolean validateClassId(String id)
+	{
+		int count = 0;
+		try
+		{
+			Class.forName("oracle.jdbc.driver.OracleDriver"); // Type 4 Driver Pure Java Driver
+			Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","Student_Performance","Student_Performance");
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery("select class_id from class where class_id = " + "'" + id + "'");
+									
+			while(rs.next())
+			{
+				++count;
+			}
+					
+			con.commit();
+			st.close();
+			con.close();
+			        
+			        
+			if(count == 0 || count > 1)
+			{
+				System.out.println("Not Valid Class ID");
+				return false;
+			}
+			else if(count ==1)
+			{
+				System.out.println("Success: Valid Class ID");
+				return true;
+			}
+		                
+		}catch (Exception ex) 
+		{
+					System.out.println(ex);
+		}
+				
+		return false;
+	}
+    
+    static String getEmpId(String username) {
+    	
+    	try
+		{
+			Class.forName("oracle.jdbc.driver.OracleDriver"); // Type 4 Driver Pure Java Driver
+			Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","Student_Performance","Student_Performance");
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery("select employee_id from employees where email = " + "'" + username + "'");
+			
+			while(rs.next())
+			{
+				return rs.getString(1);
+			}
+			
+			con.commit();
+	        st.close();
+	        con.close();
+                
+	    }
+		
+		catch (Exception ex) 
+		{
+			System.out.println(ex);
+	    }
+    	
+    	return " ";
+    }
+    
+    static Map<String,String> getBatchEmails(String classid) {
+    	
+    	Map<String,String> batchEmails = new HashMap<String,String>();
+    	
+    	try
+		{
+			Class.forName("oracle.jdbc.driver.OracleDriver"); // Type 4 Driver Pure Java Driver
+			Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","Student_Performance","Student_Performance");
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery("select employee_id, email from employees where class_id = " + "'" + classid + "'");
+			
+			while(rs.next())
+			{
+				batchEmails.put(rs.getString(2),rs.getString(1));
+			}
+			
+			con.commit();
+	        st.close();
+	        con.close();
+                
+	    }
+		
+		catch (Exception ex) 
+		{
+			System.out.println(ex);
+	    }
+    	
+    	return batchEmails;
+    }
+    
+    static void prompt() {
+    	Scanner reader = new Scanner(System.in);
+		String input = " ";
+
+		do{
+			System.out.println("-----------------Send Emails------------------");
+			System.out.println("Please enter one of the following commands: ");
+			System.out.println("1. Send Individual Email");
+			System.out.println("2. Send Batch Emails");
+			input = reader.nextLine();
+			
+		}while(!input.equals("1") && !input.contentEquals("2"));
+		
+		
+		if(input.equals("1")) {
+			System.out.println("-----------------Sending Individual Email------------------");
+			
+			do {
+				System.out.println("Enter the username");
+				input = reader.nextLine();
+			
+			}while(!validateEmail(input));
+			
+			String id = getEmpId(input);
+			
+			sendIdividualEmail(input, id); //Need valid email
+			
+			
+		}else if(input.contentEquals("2")) {
+			System.out.println("----------------Sending Batch Email---------------");
+			do {
+				System.out.println("Enter the Class ID: ");
+				input = reader.nextLine();
+			
+			}while(!validateClassId(input));
+			
+			Map<String,String> emails = getBatchEmails(input);
+			SendEmail.sendBatchEmails(emails);
+			System.out.println(emails);
+			
+		}
+		
+		reader.close();
+    }
+    
+    
 }
