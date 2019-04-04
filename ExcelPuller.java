@@ -130,7 +130,7 @@ public class ExcelPuller {
                 site = keyboard.nextLine();
                 s.append(site.toUpperCase().charAt(0));
                 s.append(site.toUpperCase().charAt(1));
-                keyboard.close();
+                
                 classID = s.toString();
                 return classID;
             }

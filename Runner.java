@@ -8,14 +8,14 @@ import java.sql.*;
  * @author syntel
  */
 public class Runner {
-    public static void main(String[] args) throws IOException {
+    public static void ExcelUpload(String FILE_PATH) throws IOException {
         
         ExcelPuller pul = new ExcelPuller();
         ArrayList<Employee> emps = new ArrayList<>();
         EmployeeCRUD empCrud = new EmployeeCRUD();
         ClassCRUD cCrud = new ClassCRUD();
         ETMCrud eCrud= new ETMCrud();
-        emps = pul.generateEmployees("C:\\Users\\syntel\\Documents\\ExampleFile.xlsx");
+        emps = pul.generateEmployees(FILE_PATH);
         
         
         
