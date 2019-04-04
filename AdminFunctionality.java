@@ -4,9 +4,8 @@ import java.util.Scanner;
 
 public class AdminFunctionality 
 {
-	public static void createModule(Statement st)
+	public static void createModule(Scanner userIn, Statement st)
 	{
-		Scanner userIn = new Scanner(System.in); // Create a Scanner object
 		
 		System.out.println("Enter the module id: ");
         int id = userIn.nextInt();
@@ -31,9 +30,8 @@ public class AdminFunctionality
 	}
 	
 	
-	public static void deleteModule(Statement st)
+	public static void deleteModule(Scanner userIn, Statement st)
 	{
-		Scanner userIn = new Scanner(System.in); // Create a Scanner object
 		
 		System.out.println("Enter the module id: ");
         int id = userIn.nextInt();
@@ -50,9 +48,9 @@ public class AdminFunctionality
              System.out.println("Deleting User Failed");
         }
 	}
-	public static void updateModule(Statement st)
+	public static void updateModule(Scanner userIn, Statement st)
 	{
-		Scanner userIn = new Scanner(System.in); // Create a Scanner object
+
         
 		System.out.println("What would you like to update?");
 		System.out.println("0. To go back");

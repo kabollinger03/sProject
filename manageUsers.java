@@ -29,27 +29,25 @@ public class manageUsers {
     private String userIdToUpdate;
     
     
-    public void init()
+    public void init(Scanner input)
     {
         System.out.println("Would you like to update or delete a user (UPDATE or DELETE)?: ");
-        input = new Scanner(System.in);
+
         updateOrDeleteUser = input.nextLine().toUpperCase().trim();
         
         if (updateOrDeleteUser.equals("UPDATE"))
         {
-            updateUser();
+            updateUser(input);
         }
         
         else if (updateOrDeleteUser.equals("DELETE"))
         {
-            deleteUser();
+            deleteUser(input);
         }
     }
     
-    public void deleteUser()
+    public void deleteUser(Scanner input)
     {
-        // change print statement to appriopriate form of input
-        input = new Scanner(System.in);
         
         while(true)
         {
@@ -104,10 +102,8 @@ public class manageUsers {
         
     }
     
-    public void updateUser()
+    public void updateUser(Scanner input)
         {
-            // change print statement to appriopriate form of input
-            input = new Scanner(System.in);
 
                 System.out.println("Do you want to update a User (YES or NO)?: ");
                 updateUserYesOrNo = input.nextLine().trim().toUpperCase();

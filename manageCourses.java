@@ -19,7 +19,7 @@ public class manageCourses {
     private String courseName;
     private String moduleId;
     private int choice;
-    private Scanner userInput = new Scanner(System.in);
+    private Scanner userInput;
     
     public void userOptionsForCourses(Statement st){
         System.out.println("Please choose an option to manage courses: ");
@@ -105,7 +105,8 @@ public class manageCourses {
     }
     
     
-    public manageCourses() {
+    public manageCourses(Scanner sc) {
+        userInput = sc;
         this.courseId = "";
         this.courseName = "";
         this.moduleId = "";
