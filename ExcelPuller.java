@@ -1,12 +1,10 @@
 package extraction.sProject;
 import java.util.*;
-import java.io.*;
-import java.util.Iterator;
+import java.util.Scanner;
 
-import org.apache.commons.math3.util.*;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.*;
+
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -15,19 +13,21 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 public class ExcelPuller {
 	
-            
-			public ArrayList<Employee> generateEmployees(String FILE_NAME) throws IOException{
+            public ArrayList<Employee> generateEmployees(String FILE_PATH) throws IOException{
       
             	Workbook workbook = null;
             	ArrayList<String> columns = new ArrayList<>(); // the column titles: "name", "email", "empID", "mod1Score"
             	ArrayList<Employee> emps = new ArrayList<>();
+                String classID = generateClassID();
             	
                 try {
 
-                    FileInputStream excelFile = new FileInputStream(new File(FILE_NAME));
+                    FileInputStream excelFile = new FileInputStream(new File(FILE_PATH));
                     workbook = new XSSFWorkbook(excelFile);
                     Sheet datatypeSheet = workbook.getSheetAt(0);
                     Iterator<Row> iterator = datatypeSheet.iterator(); // to traverse the rows
@@ -40,6 +40,7 @@ public class ExcelPuller {
                     	if (currentCell.getCellType() == CellType.STRING) {
                             
                     		columns.add(currentCell.getStringCellValue());
+                    		
                          
                     	
                     	} else if (currentCell.getCellType() == CellType.NUMERIC) {
@@ -49,9 +50,7 @@ public class ExcelPuller {
                     	
                     	}
                     }
-                    for(int i = 0; i < columns.size(); i++) {   
-                        System.out.print(columns.get(i) + " ");
-                    } 
+                    
                     
                     // go through every row after the first row
                     // create employee and module classes from these rows
@@ -62,7 +61,7 @@ public class ExcelPuller {
                       currentRow = iterator.next(); // contains employee info and module scores
                       cellIterator = currentRow.iterator();
                       
-                      System.out.println("\nrow values:");
+                     
                       Employee newEmp = new Employee();
                         while (cellIterator.hasNext()) {                           
                         	
@@ -78,10 +77,7 @@ public class ExcelPuller {
                         	} else if(counter == 2) {
                         		newEmp.setEmployeeEmail(currentCell.getStringCellValue());//Gets Emp Email
                         		counter++;
-                        	} else if(counter == 3) {
-                        		newEmp.setClassID(currentCell.getNumericCellValue()); //Gets Class ID
-                        		counter++;
-                        	}else if (counter >= 4){
+                        	} else if (counter >= 3){
                         		newEmp.addScore(columns.get(counter), currentCell.getNumericCellValue()); //Adds scores to an employee
                         		counter++;
                         		
@@ -93,6 +89,7 @@ public class ExcelPuller {
                         	
                         	
                         	}
+                        newEmp.setClassID(classID);
                         emps.add(newEmp);
                     }
                 } catch (FileNotFoundException e) {
@@ -105,6 +102,37 @@ public class ExcelPuller {
                 }
                return emps; 
             }
-   
-        }
+            
+            public String generateClassID(){
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MMddyyyyHHmm");  
+                LocalDateTime now = LocalDateTime.now();
+                Scanner keyboard = new Scanner(System.in);
+                String classID = "";
+                String location;
+                String site;
+                String stream;
+                StringBuilder s = new StringBuilder();
+                
+                
+                System.out.println("Please enter your Stream Title");
+                stream = keyboard.nextLine();
+                s.append(stream.toUpperCase().charAt(0));
+                s.append(stream.toUpperCase().charAt(1));
+                s.append(stream.toUpperCase().charAt(2));
+                s.append(dtf.format(now));
+                System.out.println("Please enter your the class's location:");
+                location = keyboard.nextLine();
+                s.append(location.toUpperCase().charAt(0));
+                s.append(location.toUpperCase().charAt(1));
+                s.append(location.toUpperCase().charAt(2));
+                
+                System.out.println("Is the class onsite or offshore?");
+                site = keyboard.nextLine();
+                s.append(site.toUpperCase().charAt(0));
+                s.append(site.toUpperCase().charAt(1));
+                keyboard.close();
+                classID = s.toString();
+                return classID;
+            }
+}
 
