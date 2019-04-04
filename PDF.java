@@ -1,3 +1,4 @@
+package extraction.sProject;
 //You will need apache pdfbox, apache fontbox, apache commonsloggings, jdbc JARs
 //So far this will just generate a pdf with no values, still need to pull info from DB
 
@@ -13,6 +14,7 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 
 public class PDF {
+    
 	private PDDocument document = new PDDocument();
 	private PDFont font = PDType1Font.TIMES_ROMAN;
 	private PDPage page = new PDPage();
@@ -23,14 +25,15 @@ public class PDF {
 	private String conPW;//Password for connecting to DB
 	private String filePath;//Path to save the pdf
        
+        private Connection connection;
 	
-	public PDF(String conURL, String conUSER, String conPW, String filePath) {
+	public PDF(Connection connection) {
 		super();
-		this.conURL = conURL;
-		this.conUSER=conUSER;
-		this.conPW=conPW;
-		this.filePath = filePath;
                 
+                this.connection = connection; // only this matters
+                
+                conURL = null;
+                conUSER = null;
 	}
 	
 	public void generate(String empid) throws SQLException, IOException, Exception{ //empid not implemented yet, should be able to get everything you will need from it
@@ -45,7 +48,7 @@ public class PDF {
                 String sGrade;
                 String dGrade;
                 String induction;
-                PDFinfo info = new PDFinfo();
+                PDFinfo info = new PDFinfo(connection);
 		document = new PDDocument();
 		font = PDType1Font.TIMES_ROMAN;
 		page = new PDPage();

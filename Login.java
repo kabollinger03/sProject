@@ -1,11 +1,14 @@
 
+import extraction.sProject.Employee;
 import extraction.sProject.Runner;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Scanner; 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -231,10 +234,14 @@ public class Login {
                             try {
                                 System.out.println("Enter your excel file path here");
                                 String file = userIn.next();
-                                Runner.ExcelUpload(file);
+                                ArrayList<Employee> employees = Runner.ExcelUpload(file);
+                                
+          
+
                             } catch (IOException ex) {
                                 ex.printStackTrace();
                             }
+                          
                         }
 				break;
 			case 2:
