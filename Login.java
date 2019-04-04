@@ -1,13 +1,18 @@
+
+import extraction.sProject.Employee;
+import extraction.sProject.Runner;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Scanner; 
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import mySProject.DownloadTemplateMenu;
-
-
 public class Login {
 	private String username;
 	private String password;
@@ -225,11 +230,24 @@ public class Login {
 				break;
 			case 1:
 				System.out.println("CREATING CLASS FUNCTIONALITY");
+                        {
+                            try {
+                                System.out.println("Enter your excel file path here");
+                                String file = userIn.next();
+                                ArrayList<Employee> employees = Runner.ExcelUpload(file);
+                                
+                                SendEmail.prompt(userIn);
+
+                            } catch (IOException ex) {
+                                ex.printStackTrace();
+                            }
+                          
+                        }
 				break;
 			case 2:
 				System.out.println("DOWNLOADING TEMPLATE FUNCTIONALITY");
-          DownloadTemplateMenu.createTemplate();
-				  break;
+                                DownloadTemplateMenu.createTemplate();
+				break;
 			default:
 				System.out.println("No such function, please choose again.");
 			}
