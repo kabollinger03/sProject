@@ -3,6 +3,7 @@ package mySProject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 
 public class DownloadTemplateMenu {
@@ -12,13 +13,13 @@ public class DownloadTemplateMenu {
         System.out.print("Please enter a stream ID: ");
     }
 
-    public static String getStreamID() {
+    public static String getStreamID(Scanner scanner) {
         
         EmployeePerformanceDAO empPerfDAO = new EmployeePerformanceDAO();
         String streamID = "";
         
         do{
-            streamID = App.scanner.nextLine();
+            streamID = scanner.nextLine();
         }while(!empPerfDAO.streamExists(streamID));
 
         return streamID;
@@ -27,12 +28,12 @@ public class DownloadTemplateMenu {
     // asks user for a stream ID until a correct one is inputted
     // grabs the static column names and the matching module names
     //      to place into the template excel file
-    public static void createTemplate() {
+    public static void createTemplate(Scanner scanner) {
         EmployeePerformanceDAO empPerfDAO = new EmployeePerformanceDAO();
         ExcelWriter excelWriter = new ExcelWriter();
         
         DownloadTemplateMenu.show();
-        String streamID = DownloadTemplateMenu.getStreamID();
+        String streamID = DownloadTemplateMenu.getStreamID(scanner);
         
         ArrayList<String> columnTitles = new ArrayList<String>();
         columnTitles.add("Name"); // static columns
