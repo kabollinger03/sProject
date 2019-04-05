@@ -1,4 +1,4 @@
-package mySProject;
+package sProject;
 
 import java.io.File;
 import java.io.FileNotFoundException;

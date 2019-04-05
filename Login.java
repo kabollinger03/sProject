@@ -13,7 +13,8 @@ import java.util.ArrayList;
 import java.util.Scanner; 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import mySProject.DownloadTemplateMenu;
+import sProject.DownloadTemplateMenu;
+
 public class Login {
 	private String username;
 	private String password;
