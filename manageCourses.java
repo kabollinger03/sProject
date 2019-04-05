@@ -18,7 +18,7 @@ public class manageCourses {
     private String courseName;
     private String moduleId;
     private int choice;
-    private Scanner userInput = new Scanner(System.in);
+    private Scanner userInput = new Scanner(System.in).useDelimiter("\\n");
     
     public void userOptionsForCourses(Statement st){
         System.out.println("Please choose an option to manage courses: ");
@@ -49,8 +49,8 @@ public class manageCourses {
             System.out.println("Please enter the course name: ");
             courseName = userInput.next();
             
-            System.out.println("Please enter the module ID: ");
-            moduleId = userInput.next();
+            //System.out.println("Please enter the module ID: ");
+            //moduleId = userInput.next();
             
             createCourse(st, courseId, courseName, moduleId);
         }
@@ -62,34 +62,14 @@ public class manageCourses {
             readCourse(st, courseId);
         }
         else if(choice == 3){
-            System.out.println("To update a course please provide the information asked for below:");
+            System.out.println("To update the course name please provide the information asked for below:");
             System.out.println("Please enter the course ID: ");
             courseId = userInput.next();
             
-            System.out.println("Please choose what you would like to update for the course: ");
-            System.out.println("1. Update Course name");
-            System.out.println("2. Update Module ID");
-            System.out.println("3. Update both Course name and Module ID");
-            choice = userInput.nextInt();
-            
-            if(choice == 1)
-            {
-                System.out.println("Please enter the course name: ");
-                courseName = userInput.next();
-            }
-            else if(choice == 2)
-            {
-                System.out.println("Please enter the module ID: ");
-                moduleId = userInput.next();
-            }
-            else if(choice == 3){
-                System.out.println("Please enter the course name: ");
-                courseName = userInput.next();
-                System.out.println("Please enter the module ID: ");
-                moduleId = userInput.next();
-            }             
-
-            updateCourse(st, courseId, courseName, moduleId);
+            System.out.println("Please enter the course name: ");
+            courseName = userInput.next();
+             
+            updateCourse(st, courseId, courseName);
         }
         else if(choice == 4){
             System.out.println("To delete a course please provide the information asked for below:");
@@ -163,10 +143,10 @@ public class manageCourses {
         }
     }
     
-    public void updateCourse(Statement st, String courseId, String courseName, String moduleId){
+    public void updateCourse(Statement st, String courseId, String courseName){
         try {
                 System.out.println("Update a course");
-                st.executeUpdate("UPDATE Student_Performance.Courses SET course_name ='" + courseName + "', module_id='" + moduleId + "'WHERE course_id ='" + courseId + "'");
+                st.executeUpdate("UPDATE Student_Performance.Courses SET course_name ='" + courseName + "'WHERE course_id ='" + courseId + "'");
                 System.out.println("Course updated");
         } catch (Exception e) {
                 System.out.println("Exception " + e.getMessage());
