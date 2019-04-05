@@ -1,4 +1,4 @@
-package mySProject;
+package sProject.crud;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -6,8 +6,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.ArrayList;
-
-import sProject.userCrud.*;
 
 /*
  * Employee Performance Database Access Object
@@ -102,12 +100,12 @@ public class EmployeePerformanceDAO {
         
         // 
         public ArrayList<String> getModuleNamesForStream(String streamID) {
-            return ModuleCRUD.getModuleNamesForStream(stment, "FSD123");
+            return chrisModuleCRUD.getModuleNamesForStream(stment, streamID);
         }
         
         
         public boolean streamExists(String ID) {
-            return StreamCRUD.streamExists(stment, ID);
+            return chrisStreamCRUD.streamExists(stment, ID);
         }
         
         

@@ -13,7 +13,8 @@ import java.util.ArrayList;
 import java.util.Scanner; 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import mySProject.DownloadTemplateMenu;
+import sProject.DownloadTemplateMenu;
+
 public class Login {
 	private String username;
 	private String password;
@@ -201,7 +202,7 @@ public class Login {
 				break;
 			case 2:
 				System.out.println("DOWNLOADING TEMPLATE FUNCTIONALITY");
-                                DownloadTemplateMenu.createTemplate();
+                                DownloadTemplateMenu.createTemplate(userIn);
 				break;
 			default:
 				System.out.println("No such function, please choose again.");

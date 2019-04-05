@@ -1,5 +1,4 @@
-
-package mySProject;
+package sProject.crud;
 
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -7,7 +6,7 @@ import java.sql.Statement;
 
 public class chrisStreamCRUD {
     
-    static boolean streamExists(Statement stment, String ID) {
+    public static boolean streamExists(Statement stment, String ID) {
         
         String SQL = "SELECT * FROM stream WHERE stream_id = '" + ID + "'";
         int numRows = 0;

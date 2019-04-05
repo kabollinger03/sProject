@@ -1,5 +1,5 @@
 
-package mySProject;
+package sProject.crud;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class chrisModuleCRUD {
         
-    static ArrayList<String> getModuleNamesForStream(Statement stment, String ID) {
+    public static ArrayList<String> getModuleNamesForStream(Statement stment, String ID) {
         
         ArrayList<String> moduleNames = new ArrayList<String>();
         String SQL = "SELECT module_name FROM modules WHERE stream_id = '" +
@@ -29,6 +29,5 @@ public class chrisModuleCRUD {
         }
         
         return moduleNames;
-    }
-    
+    } 
 }
