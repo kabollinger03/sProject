@@ -115,22 +115,38 @@ public class ExcelPuller {
                 
                 
                 System.out.println("Please enter your Stream Title");
-                stream = keyboard.nextLine();
+                do {
+                	stream = keyboard.nextLine();
+                	if(stream.length() < 3)
+                		System.out.println("Answer was too short please re-enter");
+                }while(stream.length() < 3);
                 s.append(stream.toUpperCase().charAt(0));
                 s.append(stream.toUpperCase().charAt(1));
                 s.append(stream.toUpperCase().charAt(2));
                 s.append(dtf.format(now));
                 System.out.println("Please enter your the class's location:");
-                location = keyboard.nextLine();
+                
+                do {
+                	location = keyboard.nextLine();
+                	if(location.length() < 3)
+                		System.out.println("Answer was too short please re-enter");
+                }while(location.length() < 3);
                 s.append(location.toUpperCase().charAt(0));
                 s.append(location.toUpperCase().charAt(1));
                 s.append(location.toUpperCase().charAt(2));
                 
                 System.out.println("Is the class onsite or offshore?");
-                site = keyboard.nextLine();
+                
+                do {
+                	site = keyboard.nextLine();
+                	if(site.length() < 2)
+                		System.out.println("Answer was too short please re-enter");
+                }while(site.length() < 2);
+  
                 s.append(site.toUpperCase().charAt(0));
                 s.append(site.toUpperCase().charAt(1));
                 
+                keyboard.close();
                 classID = s.toString();
                 return classID;
             }
