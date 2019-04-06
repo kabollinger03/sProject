@@ -108,7 +108,14 @@ public class EmployeePerformanceDAO {
             return chrisStreamCRUD.streamExists(stment, ID);
         }
         
+        public Connection getConnection() {
+            return connection;
+        }
         
+        public Statement getStment() {
+            return stment;
+        }
+	
 	// CRUD operations can be wrapper functions around CRUD classes with static functions
 	// OR
 	// CRUD classes can be members of this class
@@ -133,6 +140,7 @@ public class EmployeePerformanceDAO {
 	//
 	//		void addUser(User newUser)
 	//			userCRUD.addUser(newUser, prepStment, connection)
-	
+
+
 
 }
