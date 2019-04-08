@@ -20,10 +20,11 @@ public class AdminFunction  {
 			System.out.println("Welcome Admin");
 			System.out.println("Please Enter the number cooresponding to the operation you would like to complete: ");
 			System.out.println("Enter 0 to Logout.");
-			System.out.println("1. Make changes to modules");
+			System.out.println("1. Manage modules");
 			System.out.println("2. Manage users");
 			System.out.println("3. Manage courses");
-			System.out.println("4. Instructor Page");
+			System.out.println("4. Manage streams");
+			System.out.println("5. Instructor Page");
 			
 			function = userIn.nextInt();
 			
@@ -97,10 +98,21 @@ public class AdminFunction  {
 
 				}
 				case 2:
-				
-				manageUsers manageUser = new manageUsers();
-				manageUser.init();
-				
+					try {
+					Class.forName("oracle.jdbc.driver.OracleDriver"); 
+		            Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","Student_Performance","Student_Performance");
+		            Statement st = con.createStatement();
+		            
+		            manageUsers manageUser = new manageUsers();
+		            manageUser.userOptionsForUsers(st);
+		            
+		            con.commit();
+		            st.close();
+		            con.close();
+				}catch (Exception ex) {
+			     System.out.println(ex);
+			     System.out.println("not connected");
+			    }	
 				break;
 			case 3:
 				try {
@@ -120,6 +132,25 @@ public class AdminFunction  {
 		        }	
 				break;
 			case 4:
+				
+				try {
+					Class.forName("oracle.jdbc.driver.OracleDriver"); 
+		            Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","Student_Performance","Student_Performance");
+		            Statement st = con.createStatement();
+		            
+		            manageStream manageStreams = new manageStream();
+		            manageStreams.userOptionsForStream(st);
+		            
+		            con.commit();
+		            st.close();
+		            con.close();
+				}catch (Exception ex) {
+			     System.out.println(ex);
+			     System.out.println("not connected");
+			    }	
+				break;
+				
+			case 5:
 				getInstructorPage(userIn);
 				break;
 			default:
