@@ -1,6 +1,3 @@
----Clear Existing Data---
-DROP USER Student_Performance;
-
 -- -----------------------------------------------------
 -- Schema Student_Performance
 -- -----------------------------------------------------
