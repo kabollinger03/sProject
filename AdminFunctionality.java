@@ -36,8 +36,9 @@ public class AdminFunctionality
 			System.out.println(r1+" rows inserted.\n"); //Take this line out if you don't want a confirmation message
 			
 			}
-			catch (Exception e){
-				e.printStackTrace();
+			catch (Exception ex){
+				System.out.println(ex);
+				System.out.println("Creating User Failed");
 			}
 	}
 	
