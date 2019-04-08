@@ -1,5 +1,6 @@
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
@@ -17,21 +18,12 @@ public class manageCourses {
     private String courseId;
     private String courseName;
     private String moduleId;
+    private String streamId;
     private int choice;
     private Scanner userInput = new Scanner(System.in).useDelimiter("\\n");
     
     public void userOptionsForCourses(Statement st){
-        System.out.println("Please choose an option to manage courses: ");
-        System.out.println("1. Create a course");
-        System.out.println("2. Retrieve/Search a course");
-        System.out.println("3. Update a course");
-        System.out.println("4. Delete a course");
-        System.out.println("5. Quit Managing Courses");
-        choice = userInput.nextInt();
-        
-        while(choice < 1 || choice > 5)
-        {
-            System.out.println("Please make a choice between 1 and 5");
+        do{
             System.out.println("Please choose an option to manage courses: ");
             System.out.println("1. Create a course");
             System.out.println("2. Retrieve/Search a course");
@@ -39,18 +31,23 @@ public class manageCourses {
             System.out.println("4. Delete a course");
             System.out.println("5. Quit Managing Courses");
             choice = userInput.nextInt();
-        }
+        }while(choice < 1 || choice > 5);
 
         if(choice == 1){
             System.out.println("To create a course please provide the information asked for below:");
-            System.out.println("Please enter the course ID: ");
-            courseId = userInput.next();
+            //System.out.println("Please enter the course ID: ");
+            //courseId = userInput.next();
+            
+            streamId = viewStreams(st);
+            moduleId = viewModules(st, streamId);
             
             System.out.println("Please enter the course name: ");
             courseName = userInput.next();
             
             //System.out.println("Please enter the module ID: ");
-            //moduleId = userInput.next();
+            courseId = genCourseId(streamId, moduleId, courseName);
+            
+            System.out.println("GENERATED MODULE ID + " + courseId);
             
             createCourse(st, courseId, courseName, moduleId);
         }
@@ -122,6 +119,9 @@ public class manageCourses {
     }
     
     public void createCourse(Statement st, String courseId, String courseName, String moduleId){
+        
+        System.out.println("IN CREATE COURSES");
+        
         try{
             st.executeUpdate("INSERT INTO courses VALUES('"+courseId+"', '"+courseName+"', "+moduleId+")");
             System.out.println("course inserted."); //Take this line out if you don't want a confirmation message
@@ -156,18 +156,58 @@ public class manageCourses {
     public void deleteCourse(Statement st, String courseId){
         try {
                 System.out.println("Delete course");
-                st.executeUpdate("DELETE FROM Student_Performance.Class WHERE class_id = '" + courseId + "'");
+                st.executeUpdate("DELETE FROM Student_Performance.Courses WHERE course_id = '" + courseId + "'");
                 System.out.println("Course deleted");
         } catch (Exception e) {
                 System.out.println("Exception " + e.getMessage());
         }
     }
     
+    private String genCourseId(String streamId, String moduleId, String courseName){
+        String generatedID = null;
+
+        generatedID = (streamId.toUpperCase() + moduleId.toUpperCase() + courseName.toLowerCase().replaceAll("\\s+",""));
+      
+        return generatedID;
+    }
+    
+    public String viewStreams(Statement st)
+    {
+        try {
+                System.out.println("Retrieving streams");
+                ResultSet rs = st.executeQuery("select stream_id, stream_name from Student_Performance.Stream");
+                while(rs.next())
+                        System.out.println("Result: " + rs.getString(1) + " " + rs.getString(2));
+                
+                System.out.println("Please choose the Stream for your course to be added into: ");
+                streamId = userInput.next();                
+        } catch (Exception e) {
+                System.out.println("Exception " + e.getMessage());
+                streamId = "";
+        }
+        
+        return streamId;
+    }
+    
+    public String viewModules(Statement st, String streamId)
+    {
+        try {
+                System.out.println("Retrieving modules");
+                ResultSet rs = st.executeQuery("select module_id, module_name, stream_id from Student_Performance.Modules WHERE stream_id='" + streamId + "'");
+                while(rs.next())
+                        System.out.println("Result: " + rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3));
+                
+                System.out.println("Please choose the Module for your course to be added into: ");
+                moduleId = userInput.next();                               
+        } catch (Exception e) {
+                System.out.println("Exception " + e.getMessage());
+                moduleId = "";
+        }
+        return moduleId;
+    }
     
     @Override
     public String toString() {
         return "manageCourses{" + "courseId=" + courseId + ", courseName=" + courseName + ", moduleId=" + moduleId + '}';
-    }
-    
-    
+    }   
 }
