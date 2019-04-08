@@ -106,7 +106,7 @@ public class ExcelPuller {
             public String generateClassID(){
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MMddyyyyHHmm");  
                 LocalDateTime now = LocalDateTime.now();
-                Scanner keyboard = new Scanner(System.in);
+                Scanner keyboard = new Scanner(System.in).useDelimiter("\\n");
                 String classID = "";
                 String location;
                 String site;

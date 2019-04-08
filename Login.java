@@ -166,7 +166,7 @@ public class Login {
 
 	public static void getInstructorPage(Scanner userIn) {
 		//Scanner userIn = new Scanner(System.in); // Create a Scanner object
-
+        
 		int function = 1;
 		while (function != 0) {
 			System.out.println("What would you like to do?");
@@ -213,7 +213,7 @@ public class Login {
 	}
 	
 	public static void main(String[] args){
-		Scanner sc= new Scanner(System.in);
+		Scanner sc= new Scanner(System.in).useDelimiter("\\n");
 		Login login = new Login();
 		login.getUserLoginInfo(sc);
 		//sc.nextInt();
