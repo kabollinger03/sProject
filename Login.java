@@ -2,13 +2,10 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Scanner; 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public class Login {
 	private String username;
@@ -27,72 +24,41 @@ public class Login {
 		this.password = password;
 	}
 	
-	//Call getUserLoginInfo to initiate the login process
+	/* initiate the login process
+	 * @param comon scanner
+	 */
 	public void getUserLoginInfo(Scanner sc){
 
 		//Loop until user enters a correct user name
 		
-		do{
+		do {
 			System.out.println("Enter Username: "); 
 	        username = sc.nextLine();
-	    }while(!verifyEmail(username));
+	    } while(!verifyEmail(username));
 		
 		
-		//Loop until user enters correct password
-		
-		do{
+		//Loop until user enters correct password		
+		do {
 			System.out.println("Enter Password: "); 
 	        password = sc.nextLine();
-	        setPassword(password);
-	        
-	        //Will return "TRUE" if the un/pw exists
-	        if(validateInDb(this.username, this.password)){
-	        	System.out.println("Login Correct: Proceeding");
-	        	//sc.close();
-	        	break;
-	        }
-	        
-	        else{
-	        	System.out.println("Login information was incorrect");
-	        }
-	    }while(true);
-		
-		//sc.close();
+	    } while(!validateInDb(username, password));
+
 	}
 	
 	public boolean isAdmin(){
-		try
-		{
-			Class.forName("oracle.jdbc.driver.OracleDriver"); // Type 4 Driver Pure Java Driver
-			Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","Student_Performance","Student_Performance");
-			Statement st = con.createStatement();
-			ResultSet rs = st.executeQuery("select isadmin from Users where user_id = " + "'" + this.username +  "'");
+		try( Connection con = DriverManager.getConnection(Main.dbString, Main.dbUser, Main.dbPw);
+			 Statement st = con.createStatement();
+		){
+			ResultSet rs = st.executeQuery("select isadmin from Users where user_id = " + "'" + username +  "'");
 			String flag = null;
 			while(rs.next())
 			flag = rs.getString("isAdmin");
-			
-			
-			con.commit();
-	        st.close();
-	        con.close();
-			if (flag.equals("Y")) {
-				System.out.println("Admin Detected");
-				return true;
 
-			}
-			else
-			{
-				System.out.println("Instructor Detected");
-				return false;
-			}
-                
+			return flag.equals("Y");                
+	    } catch (Exception ex) 	{
+			System.out.println("Database Error: " + ex.getMessage());
+			return false;
 	    }
-		
-		catch (Exception ex) 
-		{
-			System.out.println(ex);
-	    }
-		return false;
 	}
 	
 	public boolean verifyEmail(String email_address){
@@ -110,40 +76,19 @@ public class Login {
 	}
 	
 	static boolean validateInDb(String username, String password){
-		//Number 2
 		int count = 0;
-				try
-				{
-					Class.forName("oracle.jdbc.driver.OracleDriver"); // Type 4 Driver Pure Java Driver
-					Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","Student_Performance","Student_Performance");
-					Statement st = con.createStatement();
-					ResultSet rs = st.executeQuery("select user_id, password from Users where user_id = " + "'" + username + "'" + "and password =" + "'" + password + "'");
-					
-										
-					while(rs.next())
-					{
-						++count;
-					}
-					
-					con.commit();
-			        st.close();
-			        con.close();
-		                
-			    }
-				
-				catch (Exception ex) 
-				{
-					System.out.println(ex);
-			    }
-				
-				if(count == 0 || count > 1)
-				{
-					return false;
-				}
-				else
-				{
-					return true;
-				}
+		try( Connection con = DriverManager.getConnection(Main.dbString, Main.dbUser, Main.dbPw);
+			 Statement st = con.createStatement();
+		){
+			ResultSet rs = st.executeQuery("select user_id, password from Users where user_id = " + "'" + username + "'" + "and password =" + "'" + password + "'");
+								
+			while(rs.next()) {++count; }                
+	    } catch (Exception ex) 	{
+			System.out.println("Database Error: " + ex.getMessage());
+			return false;
+	    }
+		
+		return (count == 1);
 	}
 
 	

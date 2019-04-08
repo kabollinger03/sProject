@@ -1,6 +1,10 @@
 import java.util.Scanner;
 
 public class Main {
+	
+	protected static String dbString = "jdbc:oracle:thin:@localhost:1521:XE",
+			dbUser = "Student_Performance",
+			dbPw = "Student_Performance";
 
     /*
      * @param args the command line arguments
