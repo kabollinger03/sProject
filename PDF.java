@@ -1,4 +1,3 @@
-package extraction.sProject;
 //You will need apache pdfbox, apache fontbox, apache commonsloggings, jdbc JARs
 //So far this will just generate a pdf with no values, still need to pull info from DB
 

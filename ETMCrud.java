@@ -1,5 +1,3 @@
-package extraction.sProject;
-
 import java.sql.Statement;
 
 public class ETMCrud {

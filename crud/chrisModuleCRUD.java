@@ -1,5 +1,5 @@
 
-package sProject.crud;
+//package sProject.crud;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

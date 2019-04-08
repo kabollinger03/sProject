@@ -1,5 +1,3 @@
-package extraction.sProject;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;

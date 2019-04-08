@@ -1,4 +1,3 @@
-package extraction.sProject;
 import java.util.*;
 public class Employee {
 	

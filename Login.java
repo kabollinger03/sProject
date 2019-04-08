@@ -1,7 +1,3 @@
-
-import AdminPages.AdminFunction;
-import extraction.sProject.Employee;
-import extraction.sProject.Runner;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Scanner; 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import sProject.DownloadTemplateMenu;
 
 public class Login {
 	private String username;

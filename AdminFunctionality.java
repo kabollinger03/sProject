@@ -1,4 +1,3 @@
-package AdminPages;
 import java.sql.Statement;
 import java.util.Scanner;
 

@@ -1,5 +1,3 @@
-package extraction.sProject;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.sql.*;

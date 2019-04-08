@@ -1,5 +1,3 @@
-package extraction.sProject;
-
 public class Module {
 	
 	private String moduleID;

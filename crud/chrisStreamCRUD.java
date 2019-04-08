@@ -1,4 +1,4 @@
-package sProject.crud;
+//package sProject.crud;
 
 import java.sql.SQLException;
 import java.sql.Statement;
