@@ -29,21 +29,13 @@ public class Login {
 	
 	//Call getUserLoginInfo to initiate the login process
 	public void getUserLoginInfo(Scanner sc){
-		//Validate validate = new Validate();
-		//Scanner sc = new Scanner(System.in); 
-		String username;
-		String password; 
-		
+
 		//Loop until user enters a correct user name
 		
 		do{
 			System.out.println("Enter Username: "); 
 	        username = sc.nextLine();
-	        if(verifyEmail(username) == true){
-	        	setUsername(username);
-	        	break;
-	        }
-	    }while(true);
+	    }while(!verifyEmail(username));
 		
 		
 		//Loop until user enters correct password
@@ -206,19 +198,5 @@ public class Login {
 		;
 		//userIn.close();
 
-	}
-	
-	public static void main(String[] args){
-		Scanner sc= new Scanner(System.in);
-		Login login = new Login();
-		login.getUserLoginInfo(sc);
-		//sc.nextInt();
-		if(login.isAdmin()){ //admin page
-			getAdminPage(sc);
-		}
-		else{ //instructor page
-			getInstructorPage(sc);
-			
-		}
 	}
 }

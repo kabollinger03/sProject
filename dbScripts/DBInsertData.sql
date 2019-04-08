@@ -128,3 +128,5 @@ Insert INTO Employees_Take_Modules VALUES('18', 'PM', 83.00);
 Insert INTO Employees_Take_Modules VALUES('19', 'PM', 83.00);
 Insert INTO Employees_Take_Modules VALUES('20', 'PM', 83.00);
 Insert INTO Employees_Take_Modules VALUES('21', 'PM', 83.00);
+
+COMMIT;
