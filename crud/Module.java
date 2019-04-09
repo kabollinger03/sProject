@@ -1,4 +1,4 @@
-package extraction.sProject;
+package crud;
 
 public class Module {
 	
@@ -15,8 +15,8 @@ public class Module {
 		this.moduleID = moduleID;
 		this.moduleScore = moduleScore;
 	}
-
-	
+        
+        
 	public String getModuleID() {
 		return moduleID;
 	}

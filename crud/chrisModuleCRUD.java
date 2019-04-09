@@ -29,5 +29,22 @@ public class chrisModuleCRUD {
         }
         
         return moduleNames;
-    } 
+    }
+    
+    public static int generateModuleID(Statement stment) {
+        String maxIDSql = "SELECT MAX(module_id) FROM modules";
+        int newID = 1; // if no IDs are found, then IDs start at one
+        
+        try {
+            ResultSet rs = stment.executeQuery(maxIDSql);
+            
+            if(rs.next()) // the max ID was retrieved
+                newID = (rs.getInt(1) + 1); // increment the max ID to create a new one
+            
+        }catch(SQLException e) {
+            e.printStackTrace(); 
+        }finally {
+            return newID;
+        }
+    }
 }
