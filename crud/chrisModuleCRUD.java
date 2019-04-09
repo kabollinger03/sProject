@@ -32,7 +32,7 @@ public class chrisModuleCRUD {
     }
     
     public static int generateModuleID(Statement stment) {
-        String maxIDSql = "SELECT MAX(module_id) FROM fake_modules"; //DEV: NOT THE REAL TABLE
+        String maxIDSql = "SELECT MAX(module_id) FROM modules";
         int newID = 1; // if no IDs are found, then IDs start at one
         
         try {
