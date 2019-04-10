@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.util.ArrayList"%>
 <%@ page import="java.sql.*" %>
 
@@ -51,7 +52,7 @@
   
   while (rs.next()) {
         usersList.add(rs.getString("user_id"));
-        out.println("User Id = " + rs.getString("user_id") + "<BR>"); 
+        //out.println("User Id = " + rs.getString("user_id") + "<BR>"); 
         } // End while 
   
    out.println("<P>");
@@ -88,11 +89,11 @@ Bye bye!  The system time is now <%= new java.util.Date() %>
   <label class="input-group-text" for="inputGroupSelect01">Users</label>
   </div>
    <select class="custom-select" name= "users" id="users">
-       <c:forEach items="$[usersList}" var="userValue">
-           <option value="${userValue}">
-               $[userValue}
+       <c:forEach items="${usersList}" var="user">
+           <option value="${user}">
+               ${user}
            </option>
-       </C:forEach>
+       </c:forEach>
    </select>
 </div> 
 </BODY>
