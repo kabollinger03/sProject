@@ -1,0 +1,99 @@
+<%@page import="java.util.ArrayList"%>
+<%@ page import="java.sql.*" %>
+
+<%
+  
+  //initialize driver class
+  try {    
+    Class.forName("oracle.jdbc.driver.OracleDriver");
+  } catch (Exception e) {
+    out.println("Fail to initialize Oracle JDBC driver: " + e.toString() + "<P>");
+  }
+  
+  String dbUser = "Student_Performance";
+  String dbPasswd = "Student_Performance";
+  String dbURL = "jdbc:oracle:thin:@localhost:1521:XE";
+
+  //connect
+  Connection conn = null;
+  try {
+    conn = DriverManager.getConnection(dbURL,dbUser,dbPasswd);
+    out.println(" Connection status: " + conn + "<P>");
+  } catch(Exception e) {
+    out.println("Connection failed: " + e.toString() + "<P>");      
+  }
+
+  String sql;
+  int numRowsAffected;
+  Statement stmt = conn.createStatement();
+  ResultSet rs;
+  
+  // insert
+  /*try {
+    
+    sql = "insert into users values ('chris@syntelinc.com', 'password', 'N')";
+    numRowsAffected = stmt.executeUpdate(sql);
+    out.println(numRowsAffected + " user(s) inserted. <BR>");
+  
+  } catch (SQLException e) {
+    
+    out.println("Error encountered during row insertion for employee: " + e.toString() + "<BR>");
+  
+  }*/
+  
+  
+  // select
+  sql = "select user_id from users";
+  rs = stmt.executeQuery(sql);
+  
+  ArrayList usersList = new ArrayList();
+  request.setAttribute("usersList", usersList);
+  
+  while (rs.next()) {
+        usersList.add(rs.getString("user_id"));
+        out.println("User Id = " + rs.getString("user_id") + "<BR>"); 
+        } // End while 
+  
+   out.println("<P>");
+ 
+  // delete
+  /* try {
+    sql = "delete from users";
+    numRowsAffected = stmt.executeUpdate(sql);
+    out.println(numRowsAffected + " user(s) deleted. <BR>");
+  } catch (SQLException e) {
+
+    out.println("Error encountered during deletion of employee: " + e.toString() + "<BR>");
+  
+  }  
+
+  out.println("<P>"); */
+  
+  rs.close();
+  stmt.close();
+
+  //commit
+  conn.commit();
+  
+  //disconnect
+  conn.close();
+  
+%>  
+
+<HTML>
+<BODY>
+Bye bye!  The system time is now <%= new java.util.Date() %>
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+  <label class="input-group-text" for="inputGroupSelect01">Users</label>
+  </div>
+   <select class="custom-select" name= "users" id="users">
+       <c:forEach items="$[usersList}" var="userValue">
+           <option value="${userValue}">
+               $[userValue}
+           </option>
+       </C:forEach>
+   </select>
+</div> 
+</BODY>
+</HTML>
