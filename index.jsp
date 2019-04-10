@@ -19,7 +19,7 @@
   Connection conn = null;
   try {
     conn = DriverManager.getConnection(dbURL,dbUser,dbPasswd);
-    out.println(" Connection status: " + conn + "<P>");
+    //out.println(" Connection status: " + conn + "<P>");
   } catch(Exception e) {
     out.println("Connection failed: " + e.toString() + "<P>");      
   }
@@ -96,5 +96,16 @@ Bye bye!  The system time is now <%= new java.util.Date() %>
        </c:forEach>
    </select>
 </div> 
+
+<label for="a1"><b>Choose who you want to email:</b></label>
+    <div class="btn-group-toggle" data-toggle="buttons">
+  	<label class="btn btn-secondary active">
+        <c:forEach items="${usersList}" var="user">
+           <input type="checkbox" value="${user}">
+           ${user} <br>
+        </label>
+        </c:forEach>
+    </div>
+
 </BODY>
 </HTML>
