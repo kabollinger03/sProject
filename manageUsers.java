@@ -1,12 +1,8 @@
-package AdminPages;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.ResultSet;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -17,140 +13,251 @@ public class manageUsers {
     private Connection connection;
     private PreparedStatement stmt;
     private Scanner input;
-    private String userId;
     
-    private String deleteUserYesOrNo;
-    private String updateOrDeleteUser;
-    private String updateUserYesOrNo;
-
-    private String userName;
-    private String password;
-    
-    private String userIdToUpdate;
+    private String initChoice;
     
     
-    public void init(Scanner input)
+    // INITIALIZATION METHOD. CHOOSING WHETHER TO CREATE, UPDATE OR DELETE.
+    public void init()
     {
-        System.out.println("Would you like to update or delete a user (UPDATE or DELETE)?: ");
-
-        updateOrDeleteUser = input.nextLine().toUpperCase().trim();
+        System.out.println("Would you like to create, update, or delete a user (CREATE, UPDATE, or DELETE)?: ");
+        input = new Scanner(System.in);
+        initChoice = input.nextLine().toUpperCase().trim();
         
-        if (updateOrDeleteUser.equals("UPDATE"))
+        if (initChoice.equals("CREATE"))
         {
-            updateUser(input);
+            createUser();
         }
         
-        else if (updateOrDeleteUser.equals("DELETE"))
+        else if (initChoice.equals("UPDATE"))
         {
-            deleteUser(input);
+            updateUser();
+        }
+        
+        
+        else if (initChoice.equals("DELETE"))
+        {
+            deleteUser();
+        }
+        
+        else
+        {
+            System.out.println("Please enter CREATE, UDPATE, or DELETE");
+            init();
         }
     }
     
-    public void deleteUser(Scanner input)
+    // DELETE USER ON "Users" TABLE
+    public void deleteUser()
     {
+        // change print statement to appriopriate form of input
+        input = new Scanner(System.in);
+        String userIdDB = null;
         
-        while(true)
-        {
-            System.out.println("Do you want to delete a User (YES or NO)?: ");
-            deleteUserYesOrNo = input.nextLine().trim().toUpperCase();
+        System.out.println("Please enter a User ID to delete: ");
+        String userIdToDelete = input.nextLine().trim();
+        
+        try {
+            System.out.println("One moment...");
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","Student_Performance","Student_Performance");                      
+                
+            stmt = connection.prepareStatement("select user_id from Users where user_id = ?");
+            stmt.setString(1, userIdToDelete); 
 
-            if (deleteUserYesOrNo.equals("YES"))
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next())
             {
-                System.out.println("Please enter a User ID to delete: ");
-                String userIdToDelete = input.nextLine().trim();
-
-                
-                try {
-                    Class.forName("oracle.jdbc.driver.OracleDriver");
-                    connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","Student_Performance","Student_Performance");
-                    stmt = connection.prepareStatement("delete from Users where user_id = ?");  
-                    stmt.setString(1, userIdToDelete);
-                    stmt.executeUpdate();
-                    
-                    connection.close();
-                    stmt.close();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-                
-                break;
-              
+                userIdDB = rs.getString("user_id");
             }
             
-            else if (deleteUserYesOrNo.equals("NO"))
+            if (userIdToDelete.equals(userIdDB))
             {
-                System.out.println("Thank you. Have a nice day.");
+                stmt = connection.prepareStatement("delete from Users where user_id = ?");  
+                stmt.setString(1, userIdToDelete);
+
+                System.out.println("Deleting User...");
+                stmt.executeUpdate();
+
+                System.out.println("Deleted successfully. Have a nice day.");
             }
-            
+                        
             else
             {
-                System.out.println("Please enter YES or NO");
+                System.out.println("Sorry. This user does not exist.");
+                deleteUser();
             }
+            
+            connection.close();
+            stmt.close();
+             
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        
-        
-        /*
-        try {
-            // User input goes here
-            stmt = con.prepareStatement("select * from (tableName) where id = ?");
-            // do they want to update or delete.
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        */
         
     }
     
-    public void updateUser(Scanner input)
+    // UPDATE USER ON "Users" table
+    public void updateUser()
+    {
+        input = new Scanner(System.in);
+            
+        System.out.println("Please enter a user ID to update: ");
+        String userIdToUpdate = input.nextLine();
+        
+        if (checkIfUserExists(userIdToUpdate))
         {
+            System.out.println("User exists");
+        }
+        else
+        {
+            System.out.println("Sorry. User does not exist.");
+            updateUser();
+        }  
+        
+        System.out.println("What is the new password?: ");
+        String newPassword = input.nextLine();
+                    
+        System.out.println("Is User Admin? Please enter Y or N.");
+        String isAdmin = input.nextLine().toUpperCase().trim();
 
-                System.out.println("Do you want to update a User (YES or NO)?: ");
-                updateUserYesOrNo = input.nextLine().trim().toUpperCase();
-            while(!((updateUserYesOrNo.equals("YES")) || updateUserYesOrNo.equals("NO")))
+        while(!(isAdmin.equals("Y") || isAdmin.equals("N")))
+        {
+            System.out.println("Please enter only the character 'Y' or 'N'.");
+            isAdmin = input.nextLine().toUpperCase().trim();
+        }
+               
+        try 
+        {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","Student_Performance","Student_Performance");
+            stmt = connection.prepareStatement("update Users set password = ?, isAdmin = ? where user_id = ?");  
+            stmt.setString(1, newPassword);
+            stmt.setString(2, isAdmin);
+            stmt.setString(3, userIdToUpdate);
+
+            System.out.println("Updating User...");
+            stmt.executeUpdate();
+            connection.close();
+            stmt.close();
+                                    
+            System.out.println("Update Complete. Have a nice day.");
+                
+        } catch (Exception e) {
+            e.printStackTrace();
+        }                    
+        
+    }
+    
+    
+    // ADD A NEW USER TO THE "Users" TABLE
+    public void createUser()
+    {
+        input = new Scanner(System.in);
+                
+        // "password" on Users table
+        String passwordToAdd;
+        
+        // "isAdmin" on Users table
+        String isAdminOrNot;
+            
+        System.out.println("Please enter the new User ID: ");
+        
+        // "user_id" on Users table
+        String userIdToAdd = input.nextLine().toUpperCase().trim();
+        
+        
+        // check for duplicate user ID
+        // if the user ID exists, return error message.
+        if(checkIfUserExists(userIdToAdd))
+        {
+            System.out.println("Sorry. This User ID is not available.");
+            createUser();
+        }
+        
+        // else, user ID is available to use.
+        else
+        {
+            System.out.println("User ID is available.");
+        }
+        
+                 
+        System.out.println("Please enter the password: ");
+        passwordToAdd = input.nextLine().trim(); // "password"
+                
+        System.out.println("Is this new user an Admin (Y or N)?: ");
+        isAdminOrNot = input.nextLine().toUpperCase().trim(); // "isAdmin"
+                
+        // if input for admin is not Y or N 
+        while(!(isAdminOrNot.equals("Y") || isAdminOrNot.equals("N")))
+        {
+            System.out.println("Please enter only the character 'Y' or 'N': ");
+            isAdminOrNot = input.nextLine().toUpperCase().trim();
+        }
+
+                
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","Student_Performance","Student_Performance");
+            stmt = connection.prepareStatement("insert into Users (user_id, password, isAdmin) values (?,?,?)");
+            stmt.setString(1, userIdToAdd); // "user_id"
+            stmt.setString(2, passwordToAdd); // "password"
+            stmt.setString(3, isAdminOrNot); // "isAdmin"
+
+            System.out.println("Creating User...");
+            stmt.executeUpdate();
+                    
+            connection.close();
+            stmt.close();
+            System.out.println("User created. Have a nice day.");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+            
+    }
+    
+    // CHECK FOR DUPLICATE USER
+    public Boolean checkIfUserExists(String enteredUserId)
+    {
+        String userIdDB = null;
+        try {
+            System.out.println("One moment...");
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","Student_Performance","Student_Performance");                      
+                
+            stmt = connection.prepareStatement("select user_id from Users where user_id = ?");
+            stmt.setString(1, enteredUserId); 
+
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next())
             {
-                System.out.println("Please enter only 'YES' or 'NO'");
-                updateUserYesOrNo = input.nextLine().trim().toUpperCase();
+                userIdDB = rs.getString("user_id");
             }
             
-                if (updateUserYesOrNo.equals("YES"))
-                {
-                    System.out.println("Please enter a user ID to update: ");
-                    String userIdToUpdate = input.nextLine();
-                    System.out.println("What is the new password?: ");
-                    String newPassword = input.nextLine();
-                    
-                    System.out.println("Is User Admin? Please enter Y or N.");
-                    String isAdmin = input.nextLine().toUpperCase().trim();
-
-                    while(!(isAdmin.equals("Y") || isAdmin.equals("N"))){
-                        System.out.println("Please enter only the character 'Y' or 'N'.");
-                        isAdmin = input.nextLine().toUpperCase().trim();
-                    }
-               
-                    try {
-                        Class.forName("oracle.jdbc.driver.OracleDriver");
-                        System.out.println("try");
-                        connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","Student_Performance","Student_Performance");
-                        stmt=connection.prepareStatement("update Users set password = ?, isAdmin = ? where user_id = ?");  
-                        stmt.setString(1, newPassword);
-                        stmt.setString(2, isAdmin);
-                        stmt.setString(3, userIdToUpdate);
-
-                        stmt.executeUpdate();
-                        System.out.println("execute");
-                        connection.close();
-                        stmt.close();
-                                    
-                        System.out.println("Update Complete. Have a nice day.");
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                else if (updateUserYesOrNo.equals("NO"))
-                {            
-                    System.out.println("Thank you. Have a nice day.");
-                }
+            // if user ID DOES exist in database
+            if (!enteredUserId.equals(userIdDB))
+            {
+                connection.close();
+                stmt.close();
+                return false;
+            }
+            
+            // if user ID DOES exists in database
+            else
+            {
+                connection.close();
+                stmt.close();
+                return true;
+            }
+             
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return null;
+    }
 }
