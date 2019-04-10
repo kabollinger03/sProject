@@ -83,7 +83,9 @@
 
 <HTML>
 <BODY>
-Bye bye!  The system time is now <%= new java.util.Date() %>
+ <form name="registerform" action="javascript:pre()"> 
+  <div class="container"> 
+      
 <div class="input-group mb-3">
   <div class="input-group-prepend">
   <label class="input-group-text" for="inputGroupSelect01">Users</label>
@@ -106,6 +108,12 @@ Bye bye!  The system time is now <%= new java.util.Date() %>
         </label>
         </c:forEach>
     </div>
+
+    <button type="submit" value="Submit" class="btn btn-danger">Register</button>
+    <button type="reset" value="Reset" class="btn btn-danger">Reset</button>
+    
+</div>
+</form>
 
 </BODY>
 </HTML>
