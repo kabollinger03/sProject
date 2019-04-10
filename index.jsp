@@ -14,16 +14,14 @@
   String dbUser = "Student_Performance";
   String dbPasswd = "Student_Performance";
   String dbURL = "jdbc:oracle:thin:@localhost:1521:XE";
-
   //connect
   Connection conn = null;
   try {
     conn = DriverManager.getConnection(dbURL,dbUser,dbPasswd);
-    //out.println(" Connection status: " + conn + "<P>");
+    out.println(" Connection status: " + conn + "<P>");
   } catch(Exception e) {
     out.println("Connection failed: " + e.toString() + "<P>");      
   }
-
   String sql;
   int numRowsAffected;
   Statement stmt = conn.createStatement();
@@ -63,16 +61,13 @@
     numRowsAffected = stmt.executeUpdate(sql);
     out.println(numRowsAffected + " user(s) deleted. <BR>");
   } catch (SQLException e) {
-
     out.println("Error encountered during deletion of employee: " + e.toString() + "<BR>");
   
   }  
-
   out.println("<P>"); */
   
   rs.close();
   stmt.close();
-
   //commit
   conn.commit();
   
@@ -83,9 +78,8 @@
 
 <HTML>
 <BODY>
- <form name="registerform" action="javascript:pre()"> 
-  <div class="container"> 
-      
+Bye bye!  The system time is now <%= new java.util.Date() %>
+<form name ="DropDown" method ="get" action ="#">
 <div class="input-group mb-3">
   <div class="input-group-prepend">
   <label class="input-group-text" for="inputGroupSelect01">Users</label>
@@ -97,23 +91,42 @@
            </option>
        </c:forEach>
    </select>
+    <input type ="submit" name = "submit" value = "Select User">
+    </form>
+     <% 
+                String s=request.getParameter("users");
+                if (s !=null)
+                {
+                    out.println("<P>");
+                    out.println("Selected user is : "+s);
+                }
+      %>
 </div> 
 
+<form name ="CheckBox" method ="get" action ="#">
 <label for="a1"><b>Choose who you want to email:</b></label>
     <div class="btn-group-toggle" data-toggle="buttons">
   	<label class="btn btn-secondary active">
         <c:forEach items="${usersList}" var="user">
-           <input type="checkbox" value="${user}">
+           <input type="checkbox" name = "selected" value="${user}">
            ${user} <br>
         </label>
         </c:forEach>
-    </div>
-
-    <button type="submit" value="Submit" class="btn btn-danger">Register</button>
-    <button type="reset" value="Reset" class="btn btn-danger">Reset</button>
-    
-</div>
-</form>
-
+<input type ="submit" name = "submit" value = "Select User">
+</FORM>
+<% 
+                String[] selectedUser;
+                selectedUser = request.getParameterValues("selected");
+                if(selectedUser != null)
+                {
+                    for (int i = 0; i<selectedUser.length; i++)
+                    {
+                        out.println("<P>");
+                        out.println("Selected user is : "+selectedUser[i]);
+                    }
+                }
+               
+      %>
+      </div>
 </BODY>
 </HTML>
