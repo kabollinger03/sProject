@@ -37,12 +37,12 @@ CREATE TABLE Student_Performance.Class (
   CONSTRAINT fk_Class_Stream1
     FOREIGN KEY (stream_id)
     REFERENCES Student_Performance.Stream (stream_id)
-    ON DELETE SET NULL
+    ON DELETE CASCADE
 ,
   CONSTRAINT fk_Class_Users1
     FOREIGN KEY (user_id)
     REFERENCES Student_Performance.Users (user_id)
-    ON DELETE SET NULL
+    ON DELETE CASCADE
 );
 
 CREATE INDEX fk_Class_Stream1_idx ON Student_Performance.Class (stream_id ASC);
@@ -61,7 +61,7 @@ CREATE TABLE Student_Performance.Employees (
   CONSTRAINT fk_Students_Class1
     FOREIGN KEY (class_id)
     REFERENCES Student_Performance.Class (class_id)
-    ON DELETE SET NULL
+    ON DELETE CASCADE
 );
 
 CREATE INDEX fk_Students_Class1_idx ON Student_Performance.Employees (class_id ASC);
@@ -79,7 +79,7 @@ CREATE TABLE Student_Performance.Modules (
   CONSTRAINT fk_Modules_Stream1
     FOREIGN KEY (stream_id)
     REFERENCES Student_Performance.Stream (stream_id)
-    ON DELETE SET NULL
+    ON DELETE CASCADE
 );
 
 CREATE INDEX fk_Modules_Stream1_idx ON Student_Performance.Modules (stream_id ASC);
@@ -96,7 +96,7 @@ CREATE TABLE Student_Performance.Courses (
   CONSTRAINT fk_Courses_Modules1
     FOREIGN KEY (module_id)
     REFERENCES Student_Performance.Modules (module_id)
-    ON DELETE SET NULL
+    ON DELETE CASCADE
 );
 
 CREATE INDEX fk_Courses_Modules1_idx ON Student_Performance.Courses (module_id ASC);
@@ -112,12 +112,12 @@ CREATE TABLE Student_Performance.Employees_take_Modules (
   CONSTRAINT fk_Modules_has_Modules
     FOREIGN KEY (module_id)
     REFERENCES Student_Performance.Modules (module_id)
-    ON DELETE SET NULL
+    ON DELETE CASCADE
 ,
   CONSTRAINT fk_Modules_has_Students
     FOREIGN KEY (employee_id)
     REFERENCES Student_Performance.Employees (employee_id)
-    ON DELETE SET NULL
+    ON DELETE CASCADE
 );
 
 CREATE INDEX fk_Modules_has_Students_idx ON Student_Performance.Employees_take_Modules (employee_id ASC);
