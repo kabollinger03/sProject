@@ -16,3 +16,5 @@ Insert INTO Modules VALUES('5', 'OracleMod', 'FND', 'DB343');
 Insert INTO Courses VALUES('OR1.3', 'Oracle1.3', '5');
 
 Insert INTO Employees_Take_Modules VALUES('10', 'IM505', 83.00);
+
+commit;
